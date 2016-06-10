@@ -7,7 +7,7 @@
 		<nome>
 			<type>text</type>
 			<options>
-				<label>Nome</label>
+				<label>Nome: </label>
 				<required>true</required>
 			</options>
 		</nome>
@@ -23,7 +23,8 @@
 	        <password>
             		<type>password</type>
              		<options>
-                 		<label>Senha</label>           
+                 		<label>Senha: </label>
+				<description>Apenas números, de 4 a 20 dígitos</description>            
                  		<validators>
                      			<alnum>
                          			<validator>Alnum</validator>
@@ -37,14 +38,44 @@
                      			<strlen>
                          			<validator>StringLength</validator>
                          			<options>
-                             				<min>1</min>
-                             				<max>3</max>
+                             				<min>4</min>
+                             				<max>20</max>
                          			</options>
                      			</strlen>
                  		</validators>
 				<required>true</required>
              		</options>
          	</password>
+
+                <password2>
+                        <type>password</type>
+                        <options>
+                                <label>Confirme a senha: </label>
+				<description>Confirme a senha.</description>
+                                <validators>
+                                        <alnum>
+                                                <validator>Alnum</validator>
+                                        </alnum>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^[0-9]/i</pattern>
+                                                </options>
+                                        </regex>
+                                        <strlen>
+                                                <validator>StringLength</validator>
+                                                <options>
+                                                        <min>4</min>
+                                                        <max>20</max>
+                                                </options>
+                                        </strlen>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </password2>
+
+
+
 
 		<submit>
 			<type>submit</type>
