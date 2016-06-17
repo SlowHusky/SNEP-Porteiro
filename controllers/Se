@@ -1,0 +1,52 @@
+<?php
+
+class Porteiro_SenhaController extends Zend_Controller_Action
+{
+	
+	public function	init(){}
+
+	public function indexAction()
+	{
+	        // Define a baseUrl para a rotina, utilizado nos links para demais rotinas na view
+		$this->view->url = $this->getRequest()->getModuleName() .'/'. $this->getRequest()->getControllerName();
+
+		$this->view->breadcrumb = $this->view->translate("Porteiro >> Inicio");
+	}
+	
+
+
+	public function cadastrarAction(){
+		$this->view->breadcrumb = $this->view->translate("Porteiro >> Cadastrar nova senha");
+		$this->view->text = "OI!";
+		$form = new Zenp_Form;
+		$form->setMethod('post');
+		$form->addElement('text', 'nome');
+		$form->addElement('text', 'group');
+		$form->addElement('password', 'senha', array(
+        		'validators' => array(
+           		 'alnum',
+           			 array('regex', true, '/^[0-9]{3,20}/i')
+       			 ),
+        		'required' => true,
+    		));
+		
+		$form->addElement('password', 'senha22', array(
+        		'validators' => array(
+           		 'alnum',
+           			 array('regex', true, '/^[0-9]{3,20}/i')
+       			 ),
+        		'required' => true,
+    		));
+
+
+
+
+
+
+
+
+	     	$this->view->form = $form;
+	}
+}
+
+?>
