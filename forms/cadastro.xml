@@ -2,7 +2,7 @@
 <form>
 	<id>form</id>
 	<method>post</method>
-	<action>controller</action>
+	<action>cadastrar</action>
 	<elements>
 		<nome>
 			<type>text</type>
@@ -20,59 +20,39 @@
 			</options>
 		</group>
 
-	        <password>
+	    	<senha>
             		<type>password</type>
              		<options>
                  		<label>Senha: </label>
 				<description>Apenas números, de 4 a 20 dígitos</description>            
                  		<validators>
-                     			<alnum>
-                         			<validator>Alnum</validator>
-                     			</alnum>
                      			<regex>
                          			<validator>regex</validator>
                          			<options>
-                            				<pattern>/^[0-9]/i</pattern>
+                            				<pattern>/^[0-9]{3,20}/</pattern>
                          			</options>
                      			</regex>
-                     			<strlen>
-                         			<validator>StringLength</validator>
-                         			<options>
-                             				<min>4</min>
-                             				<max>20</max>
-                         			</options>
-                     			</strlen>
                  		</validators>
 				<required>true</required>
              		</options>
-         	</password>
+         	</senha>
 
-                <password2>
+                <senhac>
                         <type>password</type>
                         <options>
                                 <label>Confirme a senha: </label>
 				<description>Confirme a senha.</description>
                                 <validators>
-                                        <alnum>
-                                                <validator>Alnum</validator>
-                                        </alnum>
                                         <regex>
                                                 <validator>regex</validator>
                                                 <options>
-                                                        <pattern>/^[0-9]/i</pattern>
+                                                        <pattern>/^[0-9]{3,20}/</pattern>
                                                 </options>
                                         </regex>
-                                        <strlen>
-                                                <validator>StringLength</validator>
-                                                <options>
-                                                        <min>4</min>
-                                                        <max>20</max>
-                                                </options>
-                                        </strlen>
                                 </validators>
                                 <required>true</required>
                         </options>
-                </password2>
+                </senhac>
 
 
 

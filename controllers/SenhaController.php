@@ -30,23 +30,33 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 		$form->setMethod('post');
 		$form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
 	
-		$request = $this->getRequest();
+        	// Verifica se existe dados sendo enviados via $_POST
+        	// Se for verdadeiro, é porqyue o formulário foi submetido.
+        	if ($this->_request->getPost()) {
 
-    		
-        	if (getInstance()->getRequest()->isPost()) {
-        		$this->view->form = $form;
-        		$values = $form->getValues();
-			$senha1 = $form['senha'];
-			$senha2 = $form['senhac'];
-			if ($senha1 === $senha2) {
-				$this->_redirect($this->getRequest()->getControllerName() . "/confirmado");
-			}   
-          	} 
- 
-		else {
-           		echo 'Invalid Form'; 
-      		}
-				
+            		// Chama método isValid() é confronta os dados submetidos pelo formulário.
+         	   	$isValid = $form->isValid($_POST);
+
+            		// Caso tudo seja válido chama a classe (Model) para inserir o dado.
+            		if( $isValid ) {
+           
+				$senha1 = $_POST['senha'];
+				$senha2 = $_POST['senhac'];
+                
+               		 	// Após remover ou nao dados redireciona para método index
+               		 	// Se as senhas forem iguais, ele vai redirecionar ao index
+				if ($senha1 == $senha2){
+					$this->_redirect($this->getRequest()->getControllerName() . "/confirmado");
+				}
+           	 	}
+			else {
+				$this->_redirect($this->getRequest()->getControllerName() . "/errorcadastrar");
+			}
+        	}
+		
+
+        	// Envia form para a view
+        	$this->view->form = $form;
 	}
 }
 
