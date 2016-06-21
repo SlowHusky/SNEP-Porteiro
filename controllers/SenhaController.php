@@ -22,7 +22,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 	        $this->view->breadcrumb = $this->view->translate("Porteiro » Cadastro");
 
 	        // Cria objeto Snep_Form
-	        $form = new Zend_Form($xml);
+	        $form = new Snep_Form($xml);
 		$form->setMethod('post');
 		$form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
 	
@@ -47,20 +47,8 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 
 					if ((strlen($usuario) < 100 && strlen($usuario) > 0) && (strlen($grupo) < 100 && strlen($grupo) > 0)){
 
+						Senha_Manager::add($_POST);
 						$this->_redirect($this->getRequest()->getControllerName() . "/index");
-					/*
-
-					$db = Zend_Registry::get('db');
-					$select
-
-
-
-
-
-
-
-
-					*/
 					}
 					 else {
                                 		$this->_redirect($this->getRequest()->getModuleName(). "/senha/errorcadastrar");
