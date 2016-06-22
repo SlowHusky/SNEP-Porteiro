@@ -40,7 +40,7 @@ class Senha_Manager {
 
                 }
         }
-        public static function remover($data){
+        public static function remove($data){
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
                 $insert_data = array("usuario" => $data['nome']);

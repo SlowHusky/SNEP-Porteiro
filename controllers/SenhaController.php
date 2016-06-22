@@ -128,7 +128,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
                         if( $isValid ) {
                                 $usuario = (string) $_POST['nome'];
                                 if (strlen($usuario) > 0){
-                                        Senha_Manager::edit($_POST);
+                                        Senha_Manager::remove($_POST);
                                         $this->_redirect($this->getRequest()->getModuleName() . "/index");
 				}
                         }
