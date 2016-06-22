@@ -15,7 +15,7 @@
 		<group>
 			<type>text</type>
 			<options>
-				<label>Grupo: </label>
+				<label>Reescrever grupo (obrigatório): </label>
 				<required>true</required>
 			</options>
 		</group>
@@ -23,7 +23,7 @@
 	    	<senha>
             		<type>password</type>
              		<options>
-                 		<label>Senha: </label>
+                 		<label>Reescrever senha (obrigatório): </label>
 				<description>Apenas números, de 4 a 20 dígitos</description>            
                  		<validators>
                      			<regex>
