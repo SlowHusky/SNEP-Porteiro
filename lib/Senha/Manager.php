@@ -26,7 +26,7 @@ class Senha_Manager {
 
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
-                $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], "cadastro" => $calendario, "atualizado" => $cal$
+                $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], "atualizado" => $calendario);
 
                 $db->beginTransaction();
 
@@ -38,6 +38,18 @@ class Senha_Manager {
 
                 $db->rollback();
 
+                }
+        }
+        public static function remover($data){
+                $db = Zend_Registry::get('db');
+                $calendario =  date("Y-m-d H:i");
+                $insert_data = array("usuario" => $data['nome']);
+                $db->beginTransaction();
+                try{
+                        $db->delete('senha', $insert_data);
+                        $db->commit();
+                }catch(Exception $e){
+                $db->rollback();
                 }
         }
 

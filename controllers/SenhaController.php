@@ -108,6 +108,39 @@ class Porteiro_SenhaController extends Zend_Controller_Action
         	$this->view->form = $form;
 	}
 
+
+	public function removerAction(){
+		$this->view->breadcrumb = $this->view->translate("Porteiro >> Editar senha");		
+                // Parse do arquivo de formulário.
+                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
+                                               "/modules/porteiro/forms/remover.xml" );
+                // Cria objeto Snep_Form
+                $form = new Snep_Form($xml);
+                $form->setMethod('post');
+                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
+                // Verifica se existe dados sendo enviados via $_POST
+                // Se for verdadeiro, é porqyue o formulário foi submetido.
+                
+		if ($this->_request->getPost()) {
+                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
+                        $isValid = $form->isValid($_POST);
+                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
+                        if( $isValid ) {
+                                $usuario = (string) $_POST['nome'];
+                                if (strlen($usuario) > 0){
+                                        Senha_Manager::edit($_POST);
+                                        $this->_redirect($this->getRequest()->getModuleName() . "/index");
+				}
+                        }
+                        else {
+                                $this->_redirect($this->getRequest()->getModuleName(). "/senha/errorcadastrar");
+                        }
+                }
+                // Envia form para a view
+                $this->view->form = $form;
+        }
+
+
 }
 
 ?>
