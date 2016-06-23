@@ -43,7 +43,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 				if ($senha1 === $senha2)  {
 
 					Senha_Manager::add($_POST);
-					$this->_redirect($this->getRequest()->getModuleName() . "/index");
+					$this->_redirect($this->getRequest()->getModuleName() . "/senha/index");
 				}
 
 
@@ -86,14 +86,12 @@ class Porteiro_SenhaController extends Zend_Controller_Action
            
 				$senha1 =(int) $_POST['senha'];
 				$senha2 = (int) $_POST['senhac'];
-                		$usuario = $_POST['nome'];
-				$grupo = $_POST['group'];
-				
+			
                		 	// Após remover ou nao dados redireciona para método index
                		 	// Se as senhas forem iguais, ele vai redirecionar ao index
 				if ($senha1 === $senha2)  {
 					Senha_Manager::edit($_POST);
-					$this->_redirect($this->getRequest()->getModuleName() . "/index");
+					$this->_redirect($this->getRequest()->getModuleName() . "/senha/index");
 				}
 				else {
                                 	$this->_redirect($this->getRequest()->getModuleName(). "/senha/errorcadastrar");
@@ -129,7 +127,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
                                 $usuario = (string) $_POST['nome'];
                                 if (strlen($usuario) > 0){
                                         Senha_Manager::remove($_POST);
-                                        $this->_redirect($this->getRequest()->getModuleName() . "/index");
+                                        $this->_redirect($this->getRequest()->getModuleName() . "/senha/index");
 				}
                         }
                         else {

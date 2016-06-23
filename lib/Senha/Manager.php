@@ -27,11 +27,11 @@ class Senha_Manager {
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
                 $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], "atualizado" => $calendario);
-
+		$usuario = $data['nome'];
                 $db->beginTransaction();
 
                 try{
-                        $db->insert('senha', $insert_data);
+                        $db->update('senha' ,$insert_data, 'usuario = {$usuario}');
                         $db->commit();
 
                 }catch(Exception $e){
@@ -42,15 +42,14 @@ class Senha_Manager {
         }
         public static function remove($data){
                 $db = Zend_Registry::get('db');
-                $calendario =  date("Y-m-d H:i");
-                $insert_data = array("usuario" => $data['nome']);
+                $usuario = (string) $data['nome'];
                 $db->beginTransaction();
-                try{
-                        $db->delete('senha', $insert_data);
-                        $db->commit();
-                }catch(Exception $e){
-                $db->rollback();
-                }
+                //try{
+                        $db->delete('senha', 'usuario = ' . $usuario);
+                        //$db->commit();
+                //}catch(Exception $e){
+                //$db->rollback();
+                //}
         }
 
 
