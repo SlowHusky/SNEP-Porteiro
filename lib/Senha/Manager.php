@@ -26,12 +26,13 @@ class Senha_Manager {
 
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
-                $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], "atualizado" => $calendario);
-		$usuario = $data['nome'];
+		$sql = 'SELECT cadastro FROM senha WHERE usuario = ' . $data['nome'];
+                $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], 'cadastro' => $sql, "atualizado" => $calendario);
+		$usuario => $data['nome'];
                 $db->beginTransaction();
-
+	
                 try{
-                        $db->update('senha' ,$insert_data, 'usuario = {$usuario}');
+                        $db->update('senha' ,$insert_data, "usuario = {$usuario}");
                         $db->commit();
 
                 }catch(Exception $e){
@@ -42,14 +43,15 @@ class Senha_Manager {
         }
         public static function remove($data){
                 $db = Zend_Registry::get('db');
-                $usuario = (string) $data['nome'];
+		$usuario = $data['nome'];
                 $db->beginTransaction();
-                //try{
-                        $db->delete('senha', 'usuario = ' . $usuario);
-                        //$db->commit();
-                //}catch(Exception $e){
-                //$db->rollback();
-                //}
+                try{
+			$db->delete('senha', array(
+					'usuario = ?' => $usuario));
+                        $db->commit();
+                }catch(Exception $e){
+                $db->rollback();
+                }
         }
 
 
