@@ -1,0 +1,56 @@
+<html>
+<head>
+
+	<link rel=stylesheet" href="index.css">
+	<script type="text/javascript" src="porteiro/jquery-datatables.js"></script>
+	<script type='text/javascript'>
+		jQuery(document).ready(function(){
+   			jQuery('#table_id').DataTable();
+});
+</script>
+
+
+</head>
+<body><h1>Bem-vindo!</h1>
+<p>Esse é o controlador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
+
+
+
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'cadastrarrfid'), null, true) ?>" class="btn">Cadastrar</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'editarrfid'), null, true) ?>" class="btn">Editar</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'removerrfid'), null, true) ?>" class="btn">Remover</a>
+
+<?
+$bd = Zend_Registry::get('db');
+$select = $bd->select()
+		->from('rfid');
+$stmt = $bd->query($select);
+$result = $stmt->fetchAll();
+?>
+
+<table id="table_id" class="display">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>RFID</th>
+            <th>Grupo</th>
+            <th>Cadastro</th>
+        </tr>
+    </thead>
+    <tbody>
+	<?
+		foreach ($result as $row)
+		{
+		?>
+        		<tr>
+            			<td><?=$row['id']?></td>
+            			<td><?=$row['rfid']?></td>
+            			<td><?=$row['grupo']?></td>
+            			<td><?=$row['cadastro']?></td>
+        		</tr>
+		<? } ?>
+    </tbody>
+</table>
+
+</body>
+</html>

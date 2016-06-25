@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head></head>
+	<body>
+		<p>Adicionar Senha:</p>
+		<form action="index" method="post">
+			Usuário: <input type="text" name="user"><br /><p></p>
+			Grupo:   <input type="text" name="group"><br /><p></p>
+			Senha:   <input type="password" name="psenha"><br />
+			<p></p>
+			<p>Repita a senha</p>
+			Senha:   <input type="password" name="ssenha"><br  >
+			<input type="reset" name="reset"><input type="submit" name="submit" value="Enviar!">
+	</form>
+	
+		
+
+	<?php
+	$validador=0;
+	function verificarUserEGrup(){
+		if( (empty($_POST['user'])) || (empty($_POST['group'])) ){
+			$validador=0;
+		}
+		else{
+			$validador=1;
+		}
+	}
+	
+	if (isset($_POST['submit'])){
+		$psenha = $_POST['psenha']; $ssenha = $_POST['ssenha'];
+		
+		if ($psenha == $ssenha)
+		{
+			echo "Senhas conferem, adicionado com sucesso!";
+			verificarUserEGroup();
+			if ($validador == 1){
+				echo "ok";
+			}			
+		}
+		else
+		{	
+			echo "Senhas não são iguais, por favor tente novamente.";
+		}
+	}
+
+	?>
+
+	</body>
+
+</html>
+
