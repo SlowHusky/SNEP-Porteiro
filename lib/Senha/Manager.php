@@ -21,21 +21,21 @@ class Senha_Manager {
                 $insert_data = array("senha" => $data['senha'], "usuario" => $data['nome'], "grupo" => $data['group'], "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
-                        $db->update('senha' , $insert_data, "usuario = " . $data['nome']);
+                        $db->update('senha' , $insert_data, "usuario = '" . $data['nome'] . "'");
                         $db->commit();
                 }catch(Exception $e){
                 $db->rollback();
                 }
         }
 
-        public static function remove($nome) {
+        public static function remove($data) {
 
 	        $db = Zend_Registry::get('db');
-		$nome = (string) $nome;
+		$nome = $data['nome'];
         	$db->beginTransaction();
 
         	try {
-            		$db->delete('senha', "id = $nome");
+            		$db->delete('senha', "usuario = '". $nome."'");
             		$db->commit();
 
         	} catch (Exception $e) {
