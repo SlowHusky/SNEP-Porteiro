@@ -7,7 +7,7 @@
 		<senha>
 			<type>text</type>
 			<options>
-				<label>Nome: </label>
+				<label>RFID: </label>
 				<required>true</required>
 			</options>
 		</senha>
