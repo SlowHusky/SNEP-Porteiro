@@ -1,11 +1,52 @@
 <html>
 <head>
-<link rel=stylesheet" href="index.css">
+        <link rel=stylesheet" href="index.css">
+        <script type="text/javascript" src="/snep/modules/porteiro/jquery/datatables.min.js"></script>
+        <script type="text/javascript" src="/snep/modules/porteiro/jquery/jquery.dataTables.min.css"></script>
+        <script type='text/javascript'>
+                jQuery(document).ready(function(){
+                        jQuery('#example').DataTable();
+});
+</script>
 </head>
 <body><h1>Bem-vindo!</h1>
 <p>Esse é o controlador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'senha', 'action' => 'cadastrar'), null, true) ?>" class="btn">Cadastrar</a>
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'senha', 'action' => 'editar'), null, true) ?>" class="btn">Editar</a>
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'senha', 'action' => 'remover'), null, true) ?>" class="btn">Remover</a>
+
+<h1>&nbsp</h1>
+
+<?
+$bd = Zend_Registry::get('db');
+$select = $bd->select()
+                ->from('senha');
+$stmt = $bd->query($select);
+$result = $stmt->fetchAll();
+?>
+<table id="example" class="display" width="100%" cellspacing="0">
+    <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Grupo</th>
+            <th>Cadastro</th>
+            <th>Atualizado</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?
+                foreach ($result as $row)
+                {
+                ?>
+                        <tr>
+                                <td><?=$row['usuario']?></td>
+                                <td><?=$row['grupo']?></td>
+                                <td><?=$row['cadastro']?></td>
+                                <td><?=$row['atualizado']?></td>
+                        </tr>
+                <? } ?>
+    </tbody>
+</table>
+
 </body>
 </html>

@@ -4,6 +4,5 @@
 	<group id="porteiro" label="Porteiro">
 		<resource id="senha_index" label="Acesso via senha"></resource>
 		<resource id="rfid_index" label="Comunicação RFID"></resource>
-		<resource id="ramal_index" label="Acesso via Ramal"></resource>
 	</group>
 </porteiro>

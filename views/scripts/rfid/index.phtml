@@ -2,10 +2,11 @@
 <head>
 
 	<link rel=stylesheet" href="index.css">
-	<script type="text/javascript" src="porteiro/jquery-datatables.js"></script>
+	<script type="text/javascript" src="/snep/modules/porteiro/jquery/datatables.min.js"></script>
+	<script type="text/javascript" src="/snep/modules/porteiro/jquery/jquery.dataTables.min.css"></script>
 	<script type='text/javascript'>
 		jQuery(document).ready(function(){
-   			jQuery('#table_id').DataTable();
+   			jQuery('#example').DataTable();
 });
 </script>
 
@@ -19,6 +20,7 @@
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'cadastrarrfid'), null, true) ?>" class="btn">Cadastrar</a>
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'editarrfid'), null, true) ?>" class="btn">Editar</a>
 <a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'removerrfid'), null, true) ?>" class="btn">Remover</a>
+<h1>&nbsp</h1>
 
 <?
 $bd = Zend_Registry::get('db');
@@ -27,14 +29,14 @@ $select = $bd->select()
 $stmt = $bd->query($select);
 $result = $stmt->fetchAll();
 ?>
-
-<table id="table_id" class="display">
+<table id="example" class="display" width="100%" cellspacing="0">
     <thead>
-        <tr>
-            <th>ID</th>
+	<tr>
+
             <th>RFID</th>
             <th>Grupo</th>
             <th>Cadastro</th>
+	    <th>Atualizado</th>
         </tr>
     </thead>
     <tbody>
@@ -43,10 +45,10 @@ $result = $stmt->fetchAll();
 		{
 		?>
         		<tr>
-            			<td><?=$row['id']?></td>
             			<td><?=$row['rfid']?></td>
             			<td><?=$row['grupo']?></td>
             			<td><?=$row['cadastro']?></td>
+				<td><?=$row['atualizado']?></td>
         		</tr>
 		<? } ?>
     </tbody>
