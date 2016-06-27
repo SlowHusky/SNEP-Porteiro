@@ -89,7 +89,7 @@ class Porteiro_RfidController extends Zend_Controller_Action
         	$this->view->form = $form;
 	}
 	public function removerrfidAction(){
-		$this->view->breadcrumb = $this->view->translate("Porteiro >> Editar RFID");		
+		$this->view->breadcrumb = $this->view->translate("Porteiro >> Remover RFID");		
                 // Parse do arquivo de formulário.
                 $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
                                                "/modules/porteiro/forms/removerrfid.xml" );
