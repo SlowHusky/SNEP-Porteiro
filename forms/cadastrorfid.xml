@@ -22,7 +22,7 @@
                      			<regex>
                          			<validator>regex</validator>
                          			<options>
-                            				<pattern>/^[0-9]{3,150}/</pattern>
+                            				<pattern>/^.{3,150}/</pattern>
                          			</options>
                      			</regex>
                  		</validators>
