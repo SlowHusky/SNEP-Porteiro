@@ -13,7 +13,7 @@ class Porteiro_RfidController extends Zend_Controller_Action
 		
 		// Parse do arquivo de formulário
         	$xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                              "/modules/porteiro/forms/cadastrorfid.xml" );
+                                              "/modules/porteiro/forms/rfid/cadastrorfid.xml" );
 	        // Cria objeto Snep_Form
 	        $form = new Snep_Form($xml);
 		$form->setMethod('post');
@@ -54,7 +54,7 @@ class Porteiro_RfidController extends Zend_Controller_Action
 		
 		// Parse do arquivo de formulário.
 	        $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                               "/modules/porteiro/forms/editarrfid.xml");
+                                               "/modules/porteiro/forms/rfid/editarrfid.xml");
 	        // Cria objeto Snep_Form
 	        $form = new Snep_Form($xml);
 		$form->setMethod('post');
@@ -77,11 +77,11 @@ class Porteiro_RfidController extends Zend_Controller_Action
 					$this->_redirect($this->getRequest()->getModuleName() . "/rfid/index");
 				}
 				else {
-                                	$this->_redirect($this->getRequest()->getModuleName(). "/rfid/errorcadastrar");
+                                	$this->_redirect($this->getRequest()->getModuleName(). "/rfid/erroreditar");
                        		}
            	 	}
 			else {
-				$this->_redirect($this->getRequest()->getModuleName(). "/rfid/errorcadastrar");
+				$this->_redirect($this->getRequest()->getModuleName(). "/rfid/erroreditar");
 			}
         	}
 		
@@ -92,13 +92,13 @@ class Porteiro_RfidController extends Zend_Controller_Action
 		$this->view->breadcrumb = $this->view->translate("Porteiro >> Remover RFID");		
                 // Parse do arquivo de formulário.
                 $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                               "/modules/porteiro/forms/removerrfid.xml" );
+                                               "/modules/porteiro/forms/rfid/removerrfid.xml" );
                 // Cria objeto Snep_Form
                 $form = new Snep_Form($xml);
                 $form->setMethod('post');
                 $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
                 // Verifica se existe dados sendo enviados via $_POST
-                // Se for verdadeiro, é porqyue o formulário foi submetido.
+                // Se for verdadeiro, é porque o formulário foi submetido.
                 
 		if ($this->_request->getPost()) {
                         // Chama método isValid() é confronta os dados submetidos pelo formulário.

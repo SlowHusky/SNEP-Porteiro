@@ -13,7 +13,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 		
 		// Parse do arquivo de formulário
         	$xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                              "/modules/porteiro/forms/cadastro.xml" );
+                                              "/modules/porteiro/forms/senha/cadastro.xml" );
 	        // Cria objeto Snep_Form
 	        $form = new Snep_Form($xml);
 		$form->setMethod('post');
@@ -58,7 +58,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 		
 		// Parse do arquivo de formulário.
 	        $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                               "/modules/porteiro/forms/editar.xml");
+                                               "/modules/porteiro/forms/senha/editar.xml");
 	        // Cria objeto Snep_Form
 	        $form = new Snep_Form($xml);
 		$form->setMethod('post');
@@ -82,11 +82,11 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 					$this->_redirect($this->getRequest()->getModuleName() . "/senha/index");
 				}
 				else {
-                                	$this->_redirect($this->getRequest()->getModuleName(). "/senha/errorcadastrar");
+                                	$this->_redirect($this->getRequest()->getModuleName(). "/senha/erroreditar");
                        		}
            	 	}
 			else {
-				$this->_redirect($this->getRequest()->getModuleName(). "/senha/errorcadastrar");
+				$this->_redirect($this->getRequest()->getModuleName(). "/senha/erroreditar");
 			}
         	}
 		
@@ -97,7 +97,7 @@ class Porteiro_SenhaController extends Zend_Controller_Action
 		$this->view->breadcrumb = $this->view->translate("Porteiro >> Editar senha");		
                 // Parse do arquivo de formulário.
                 $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-                                               "/modules/porteiro/forms/remover.xml" );
+                                               "/modules/porteiro/forms/senha/remover.xml" );
                 // Cria objeto Snep_Form
                 $form = new Snep_Form($xml);
                 $form->setMethod('post');
