@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+        <id>form</id>
+        <method>post</method>
+        <action>cadastrarporteiro</action>
+        <elements>
+
+                <ip>
+                        <type>text</type>
+                        <options>
+				<description>Entre com o IP do porteiro:</description>
+                                <label>IP: </label>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^.{10,30}/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </ip>
+
+                <porta>
+                        <type>text</type>
+                        <options>
+                                <label>Porta: </label>
+                                <description>Entre com a porta do porteiro: </description>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^[0-9]{1,6}/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </porta>	
+
+	        <transporte>
+	            <type>Select</type>
+	            <options>
+	                <label>Selecione o protocolo:</label>
+	                <multioptions>
+	                    <opcao1> TCP </opcao1>
+	                    <opcao2> UDP </opcao2>>
+	                </multioptions>
+	            </options>
+        	</transporte>
+
+                <mac>
+                        <type>text</type>
+                        <options>
+                                <label>MAC: </label>
+                                <description>Entre com o MAC do porteiro:</description>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^.{10,30}/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </mac>
+
+
+                <nome>
+                        <type>text</type>
+                        <options>
+                                <label>Nome: </label>
+                                <required>true</required>
+                        </options>
+                </nome>
+
+
+                <submit>
+                        <type>submit</type>
+                        <options>
+                                <label>Enviar</label>
+                        </options>
+                </submit>
+        </elements>
+</form>
+

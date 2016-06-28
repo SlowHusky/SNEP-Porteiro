@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<id>form</id>
+	<method>post</method>
+	<action>removerporteiro</action>
+	<elements>
+
+                <ip>
+                        <type>text</type>
+                        <options>
+                                <label>IP: </label>
+                                <description>Entre com o IP do porteiro:</description>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^.{10,30}/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </ip>
+
+                <mac>
+                        <type>text</type>
+                        <options>
+                                <label>MAC: </label>
+                                <description>Entre com o MAC do porteiro:</description>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^.{10,30}/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </mac>		
+
+
+		<submit>
+			<type>submit</type>
+			<options>
+				<label>Enviar</label>
+			</options>
+		</submit>
+	</elements>
+</form>
