@@ -42,7 +42,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		
 		
 		
 		}
@@ -75,7 +75,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		 
 		
 		}
 		
@@ -107,7 +107,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		        
 		
 		}
 
@@ -139,7 +139,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		       
 		}
 		
 		public function removergrupoAction(){
@@ -170,7 +170,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		        
 		
 		}		
 
@@ -203,7 +203,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		        }
+		 
 		}
 }
 
