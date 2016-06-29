@@ -1,13 +1,5 @@
 <html>
 <head>
-        <link rel=stylesheet" href="index.css">
-        <script type="text/javascript" src="/snep/modules/porteiro/jquery/datatables.min.js"></script>
-        <script type="text/javascript" src="/snep/modules/porteiro/jquery/jquery.dataTables.min.css"></script>
-        <script type='text/javascript'>
-                jQuery(document).ready(function(){
-                        jQuery('#example').DataTable();
-});
-</script>
 </head>
 <body><h1>Gerenciador de porteiro eletrônico.</h1>
 <p>Esse é o gerenciador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
@@ -20,37 +12,5 @@
 
 
 <h1>&nbsp</h1>
-
-<?
-$bd = Zend_Registry::get('db');
-$select = $bd->select()
-                ->from('senha');
-$stmt = $bd->query($select);
-$result = $stmt->fetchAll();
-?>
-<table id="example" class="display" width="100%" cellspacing="0">
-    <thead>
-        <tr>
-            <th>Usuário</th>
-            <th>Grupo</th>
-            <th>Cadastro</th>
-            <th>Atualizado</th>
-        </tr>
-    </thead>
-    <tbody>
-        <?
-                foreach ($result as $row)
-                {
-                ?>
-                        <tr>
-                                <td><?=$row['usuario']?></td>
-                                <td><?=$row['grupo']?></td>
-                                <td><?=$row['cadastro']?></td>
-                                <td><?=$row['atualizado']?></td>
-                        </tr>
-                <? } ?>
-    </tbody>
-</table>
-
 </body>
 </html>
