@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+	<id>form</id>
+	<method>post</method>
+	<action>cadastrarrfid</action>
+	<elements>
+		
+		<group>
+			<type>text</type>
+			<options>
+				<label>Grupo: </label>
+				<required>true</required>
+			</options>
+		</group>
+
+	    	<senha>
+            		<type>text</type>
+             		<options>
+                 		<label>RFID</label>
+				<description>Entre com o ID de seu RFID:</description>            
+                 		<validators>
+                     			<regex>
+                         			<validator>regex</validator>
+                         			<options>
+                            				<pattern>/^.{3,150}/</pattern>
+                         			</options>
+                     			</regex>
+                 		</validators>
+				<required>true</required>
+             		</options>
+         	</senha>
+
+		<submit>
+			<type>submit</type>
+			<options>
+				<label>Enviar</label>
+			</options>
+		</submit>
+	</elements>
+</form>

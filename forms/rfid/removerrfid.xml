@@ -2,16 +2,15 @@
 <form>
 	<id>form</id>
 	<method>post</method>
-	<action>cadastrargrupo</action>
+	<action>removerrfid</action>
 	<elements>
-		
-		<group>
+		<senha>
 			<type>text</type>
 			<options>
-				<label>Grupo: </label>
+				<label>RFID: </label>
 				<required>true</required>
 			</options>
-		</group>
+		</senha>
 
 		<submit>
 			<type>submit</type>

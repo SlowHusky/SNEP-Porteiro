@@ -43,8 +43,6 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                // Envia form para a view
 		                $this->view->form = $form;
 		
-		
-		
 		}
 		
 		public function removerporteiroAction(){
@@ -116,7 +114,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Parse do arquivo de formulário
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-		                                              "/modules/porteiro/forms/cadastrargrupo.xml" );
+		                                              "/modules/porteiro/forms/gerenciador/cadastrargrupo.xml" );
 		                // Cria objeto Snep_Form
 		                $form = new Snep_Form($xml);
 		                $form->setMethod('post');

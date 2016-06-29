@@ -5,23 +5,6 @@
 	<action>removerporteiro</action>
 	<elements>
 
-                <ip>
-                        <type>text</type>
-                        <options>
-                                <label>IP: </label>
-                                <description>Entre com o IP do porteiro:</description>
-                                <validators>
-                                        <regex>
-                                                <validator>regex</validator>
-                                                <options>
-                                                        <pattern>/^.{10,30}/</pattern>
-                                                </options>
-                                        </regex>
-                                </validators>
-                                <required>true</required>
-                        </options>
-                </ip>
-
                 <mac>
                         <type>text</type>
                         <options>

@@ -2,16 +2,15 @@
 <form>
 	<id>form</id>
 	<method>post</method>
-	<action>cadastrargrupo</action>
+	<action>remover</action>
 	<elements>
-		
-		<group>
+		<nome>
 			<type>text</type>
 			<options>
-				<label>Grupo: </label>
+				<label>Nome: </label>
 				<required>true</required>
 			</options>
-		</group>
+		</nome>
 
 		<submit>
 			<type>submit</type>
