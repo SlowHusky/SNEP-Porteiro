@@ -8,7 +8,7 @@
                         <type>text</type>
                         <options>
                                 <label>IP: </label>
-                                <description>Entre com o IP do porteiro:</description>
+
                                 <validators>
                                         <regex>
                                                 <validator>regex</validator>
@@ -25,7 +25,7 @@
                         <type>text</type>
                         <options>
                                 <label>Porta: </label>
-                                <description>Entre com a porta do porteiro: </description>
+
                                 <validators>
                                         <regex>
                                                 <validator>regex</validator>
@@ -53,7 +53,7 @@
                         <type>text</type>
                         <options>
                                 <label>MAC: </label>
-                                <description>Entre com o MAC do porteiro:</description>
+
                                 <validators>
                                         <regex>
                                                 <validator>regex</validator>
@@ -74,6 +74,23 @@
                                 <required>true</required>
                         </options>
                 </nome>
+
+                <rele1>
+                        <type>text</type>
+                        <options>
+                                <label>Rele1: </label>
+                                <required>true</required>
+                        </options>
+                </rele1>
+                
+                <rele2>
+                        <type>text</type>
+                        <options>
+                                <label>Rele2: </label>
+                                <required>true</required>
+                        </options>
+                </rele2>
+                
 
 
                 <submit>
