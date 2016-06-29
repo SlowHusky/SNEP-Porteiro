@@ -32,7 +32,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::addporteiro($_POST);
+		                                Gerenciador_ManagerGerenciador::addporteiro($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
@@ -63,7 +63,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::rmporteiro($_POST);
+		                                Gerenciador_ManagerGerenciador::rmporteiro($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
@@ -95,7 +95,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::editporteiro($_POST);
+		                                Gerenciador_ManagerGerenciador::editporteiro($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
@@ -127,8 +127,8 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::addgrupo($_POST);
-		                                $this->_redirect($this->getRequest()->getModuleName() . "/senha/index");
+		                                Gerenciador_ManagerGerenciador::addgrupo($_POST);
+		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrargrupo");
@@ -158,7 +158,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::rmgrupo($_POST);
+		                                Gerenciador_ManagerGerenciador::rmgrupo($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
@@ -191,7 +191,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::permissoes($_POST);
+		                                Gerenciador_ManagerGerenciador::permissoes($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
