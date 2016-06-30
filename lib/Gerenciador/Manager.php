@@ -2,10 +2,11 @@
  
 class Gerenciador_Manager {
  
-        public static function addporteiro($data){
 
+        public static function addporteiro($data)
+	{
                 $db = Zend_Registry::get('db');
-                $calendario =  date("Y-m-d H:i");
+                $calendario = date("Y-m-d H:i");
                 $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['nome'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "cadastro" => $calendario, "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
@@ -13,13 +14,13 @@ class Gerenciador_Manager {
                         $db->commit();
                 }catch(Exception $e){
                 $db->rollback();
-                }   
-        }   
+        	}
+	}     
 
         public static function editporteiro($data){
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
-                $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['nome'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "atualizado" => $calendario);
+                $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['no    me'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "cadastro" => $calendario, "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
                         $db->update('tb_porteiro' , $insert_data, "mac = '" . $data['mac'] . "'");
@@ -61,7 +62,7 @@ class Gerenciador_Manager {
         }   
 
 
-        public static function removeporteiro($data) {
+        public static function rmgrupo($data) {
 
                 $db = Zend_Registry::get('db');
                 $grupo = $data['grupo'];
@@ -92,7 +93,5 @@ class Gerenciador_Manager {
                 }   
         }   
 
-
 }
 ?>
-
