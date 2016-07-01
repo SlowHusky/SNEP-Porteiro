@@ -1,5 +1,23 @@
 <head>
 <meta charset="UTF-8">
-</head> 
-<?php echo $this->text ?>
-<?php echo $this->form ?>
+</head>
+<body> 
+<h1>Permissões</h1>
+<?php
+	$bd = Zend_Registry::get('db');
+	$select = $bd->select()
+	                ->from('tb_porteiro');
+	$stmt = $bd->query($select);
+	$result = $stmt->fetchAll();
+
+?>
+<form>
+        <?  
+                foreach ($result as $row)
+                {   
+                ?> 
+			<input type="radio" name="<?=$row['mac']?>" value="<?=$row['mac']?>"><?=$row['mac']?><br>
+		<? } ?>
+	<input type="submit" value="Enviar">
+</form>
+</body>

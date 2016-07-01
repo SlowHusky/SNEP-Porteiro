@@ -79,7 +79,7 @@ class Gerenciador_Manager {
         }
 
         public static function permissoes($data){
-
+/*
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");
                 $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['nome'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "cadastro" => $calendario, "atualizado" => $calendario);
@@ -91,6 +91,6 @@ class Gerenciador_Manager {
                 $db->rollback();
                 }   
         }   
-
+*/
 }
 ?>

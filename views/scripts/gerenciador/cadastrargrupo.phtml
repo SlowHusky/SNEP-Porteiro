@@ -34,7 +34,7 @@ $result = $stmt->fetchAll();
                 {
                 ?>
                         <tr>
-                                <td><?=$row['grupo']?></td>
+                                <td><a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'gerenciador', 'action' => 'permissoes'), null, true) ?>"><?=$row['grupo']?></a></td>
                                 <td><?=$row['cadastro']?></td>
                                 <td><?=$row['atualizado']?></td>
                         </tr>

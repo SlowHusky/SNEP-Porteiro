@@ -174,7 +174,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		
 		public function permissoesAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Permissões");
-		                
+		                /*
 		                // Parse do arquivo de formulário
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
 		                                              "/modules/porteiro/forms/permissoes.xml" );
@@ -200,7 +200,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                
 		                // Envia form para a view
 		                $this->view->form = $form;
-		 
+		 */
 		}
 }
 
