@@ -47,10 +47,10 @@ class Gerenciador_Manager {
 
         }
 
-        public static function addgrupo($data){
-
+        public static function addgrupo($data)
+        {   
                 $db = Zend_Registry::get('db');
-                $calendario =  date("Y-m-d H:i");
+                $calendario = date("Y-m-d H:i");
                 $insert_data = array("grupo" => $data['grupo'], "cadastro" => $calendario, "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
@@ -59,8 +59,7 @@ class Gerenciador_Manager {
                 }catch(Exception $e){
                 $db->rollback();
                 }   
-        }   
-
+        } 
 
         public static function rmgrupo($data) {
 

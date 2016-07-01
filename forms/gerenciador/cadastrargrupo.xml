@@ -5,13 +5,13 @@
 	<action>cadastrargrupo</action>
 	<elements>
 		
-		<group>
+		<grupo>
 			<type>text</type>
 			<options>
 				<label>Grupo: </label>
 				<required>true</required>
 			</options>
-		</group>
+		</grupo>
 
 		<submit>
 			<type>submit</type>
