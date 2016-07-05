@@ -54,7 +54,7 @@ class Gerenciador_Manager {
                 $insert_data = array("grupo" => $data['grupo'], "cadastro" => $calendario, "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
-                        $db->insert('tb_grupo', $insert_data);
+                        $db->insert('tb_grupos', $insert_data);
                         $db->commit();
                 }catch(Exception $e){
                 $db->rollback();
@@ -68,7 +68,7 @@ class Gerenciador_Manager {
                 $db->beginTransaction();
 
                 try {
-                        $db->delete('tb_grupo', "grupo = '". $grupo."'");
+                        $db->delete('tb_grupos', "grupo = '". $grupo."'");
                         $db->commit();
 
                 } catch (Exception $e) {
@@ -77,8 +77,10 @@ class Gerenciador_Manager {
                 }
 
         }
-
+	public static oi($data){}
         public static function permissoes($data){
+
+		print_r($data);
 /*
                 $db = Zend_Registry::get('db');
                 $calendario =  date("Y-m-d H:i");

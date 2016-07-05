@@ -6,8 +6,15 @@
         <script type='text/javascript'>
                 jQuery(document).ready(function(){
                         jQuery('#example').DataTable();
-});
-</script>
+
+			jQuery('.red').click(function(){
+				var id = $(this).attr('id');
+				
+				//falta transformar isso para uma string e enviar//
+				//$.post($this->_redirect('/porteiro/gerenciador/permissoes/grupo/'.id)
+			});
+		});
+	</script>
 <meta charset="UTF-8"> 
 </head>
 <?php echo $this->text ?>
@@ -16,7 +23,7 @@
 <?
 $bd = Zend_Registry::get('db');
 $select = $bd->select()
-                ->from('tb_grupo');
+                ->from('tb_grupos');
 $stmt = $bd->query($select);
 $result = $stmt->fetchAll();
 ?>
@@ -34,7 +41,7 @@ $result = $stmt->fetchAll();
                 {
                 ?>
                         <tr>
-                                <td><a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'gerenciador', 'action' => 'permissoes'), null, true) ?>"><?=$row['grupo']?></a></td>
+                                <td><a id="<?=$row['grupo']?>" class="red" href="<?php //echo $this->url(array('module' => 'porteiro', 'controller' => 'gerenciador', 'action' => 'permissoes'), null, true) ?>">&nbsp &nbsp &nbsp <?=$row['grupo']?></a></td>
                                 <td><?=$row['cadastro']?></td>
                                 <td><?=$row['atualizado']?></td>
                         </tr>

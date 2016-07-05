@@ -16,7 +16,7 @@
 <?
 $bd = Zend_Registry::get('db');
 $select = $bd->select()
-                ->from('tb_grupo');
+                ->from('tb_grupos');
 $stmt = $bd->query($select);
 $result = $stmt->fetchAll();
 ?>
