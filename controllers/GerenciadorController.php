@@ -32,7 +32,6 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
                         		$isValid = $form->isValid($_POST);
                         		// Caso tudo seja válido chama a classe (Model) para inserir o dado.
                         		if( $isValid ) { 
-                                        	//Gerenciador_Manager::addporteiro($_POST);
                                         	Gerenciador_Manager::addporteiro($_POST);
                                                 $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
                         		}   
@@ -175,7 +174,16 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		
 		public function permissoesAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Permissões");
-				$grupo = $this->_getParam('grupo');
+				$grupoid = $this->_getParam('grupo');
+ 				
+				$bd = Zend_Registry::get('db');
+ 				$select = $bd->select()
+                 				->from('tb_grupos')
+						->where('id',$grupoid);
+ 				$stmt = $bd->query($select);
+ 				$result = $stmt->fetchAll();
+				print_r($result);
+
 		                /*
 		                // Parse do arquivo de formulário
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
@@ -186,7 +194,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
 		        
 		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porqyue o formulário foi submetido.
+		                // Se for verdadeiro, é porque o formulário foi submetido.
 		                if ($this->_request->getPost()) {
 		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
 		                        $isValid = $form->isValid($_POST);

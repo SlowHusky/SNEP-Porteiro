@@ -1,7 +1,17 @@
 <?php
  
-class Gerenciador_Manager {
- 
+class Gerenciador_Manager { 
+
+	public static function porteiroAdd()
+	{}
+	public static function porteiroGetAll()
+	{}
+	public static function porteiroGetId($id)
+	{}
+	public static function porteiroDelId($id)
+	{}
+	public static function porteiroGetByPermissao($idPermissao)
+	{}
 
         public static function addporteiro($data)
 	{
