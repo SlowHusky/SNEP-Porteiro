@@ -11,13 +11,14 @@
 	$result = $stmt->fetchAll();
 
 ?>
-<form>
-        <?  
+<form action="permissoes" method="post" enctype="application/x-www-form-urlencoded">
+        <input type="hidden" name="grupo" value="<?echo $this->status?>">	
+        <?  $num=1;
                 foreach ($result as $row)
                 {   
                 ?> 
-			<input type="radio" name="<?=$row['mac']?>" value="<?=$row['mac']?>"><?=$row['mac']?><br>
-		<? } ?>
+			<input type="checkbox" name="mac<?=$num?>" value="<?=$row['mac']?>"><?=$row['mac']?><br>
+		<? $num = $num +1;} ?>
 	<input type="submit" value="Enviar">
 </form>
 </body>

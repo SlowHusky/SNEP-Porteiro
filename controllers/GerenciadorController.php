@@ -3,7 +3,14 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 {
 
 	        public function init(){}
-
+		
+		public function createForm($xml)
+		{
+                       $form = new Snep_Form($xml);
+                       $form->setMethod('post');
+                       $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
+		       return $form;
+		}
 
 
 	        public function indexAction(){
@@ -21,10 +28,8 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
 		                                              "/modules/porteiro/forms/gerenciador/cadastrarporteiro.xml" );
 		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-	
+				$form = Porteiro_GerenciadorController::createForm($xml);
+		                	
                 		// Verifica se existe dados sendo enviados via $_POST
                 		// Se for verdadeiro, é porque o formulário foi submetido.
                 		if ($this->_request->getPost()) {
@@ -32,8 +37,10 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
                         		$isValid = $form->isValid($_POST);
                         		// Caso tudo seja válido chama a classe (Model) para inserir o dado.
                         		if( $isValid ) { 
-                                        	Gerenciador_Manager::addporteiro($_POST);
-                                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+                                        	//Gerenciador_Manager::porteiroAdd($_POST);
+                                                //$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+                                                print_r($_POST);
+
                         		}   
                         		else {
                                 		$this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrarporteiro");
@@ -45,174 +52,90 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		
 		public function removerporteiroAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Remover Porteiro");
-		                
-		                // Parse do arquivo de formulário
+		            
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-		                                              "/modules/porteiro/forms/gerenciador/removerporteiro.xml" );
-		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-		        
-		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porque o formulário foi submetido.
+		                                              "/modules/porteiro/forms/gerenciador/removerporteiro.xml");
+                                $form = Porteiro_GerenciadorController::createForm($xml);
 		                if ($this->_request->getPost()) {
-		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
 		                        $isValid = $form->isValid($_POST);
-		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::rmporteiro($_POST);
+		                                Gerenciador_Manager::porteiroRemove($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorremoverporteiro");
 		                        }
 		                }
-		                
-		                // Envia form para a view
 		                $this->view->form = $form;
-		 
-		
 		}
 		
 		public function editarporteiroAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Editar Porteiro");
-		                
-		                // Parse do arquivo de formulário
+		      
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
 		                                              "/modules/porteiro/forms/gerenciador/editarporteiro.xml" );
-		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-		        
-		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porque o formulário foi submetido.
+                                $form = Porteiro_GerenciadorController::createForm($xml);
 		                if ($this->_request->getPost()) {
-		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
 		                        $isValid = $form->isValid($_POST);
-		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::editporteiro($_POST);
+		                                Gerenciador_Manager::porteiroEdit($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/erroreditarporteiro");
 		                        }
 		                }
-		                
-		                // Envia form para a view
 		                $this->view->form = $form;
-		        
-		
 		}
 
 
 		public function cadastrargrupoAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Cadastrar Grupo");
-		                
-		                // Parse do arquivo de formulário
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
 		                                              "/modules/porteiro/forms/gerenciador/cadastrargrupo.xml" );
-		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-		        
-		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porqyue o formulário foi submetido.
+                                $form = Porteiro_GerenciadorController::createForm($xml);
 		                if ($this->_request->getPost()) {
-		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
 		                        $isValid = $form->isValid($_POST);
-		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::addgrupo($_POST);
+		                                Gerenciador_Manager::grupoAdd($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrargrupo");
 		                        }
 		                }
-		                
-		                // Envia form para a view
 		                $this->view->form = $form;
-		       
 		}
 		
 		public function removergrupoAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Remover Grupo");
-		                
-		                // Parse do arquivo de formulário
 		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
 		                                              "/modules/porteiro/forms/gerenciador/removergrupo.xml" );
-		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-		        
-		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porque o formulário foi submetido.
+                                $form = Porteiro_GerenciadorController::createForm($xml);
 		                if ($this->_request->getPost()) {
-		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
 		                        $isValid = $form->isValid($_POST);
-		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::rmgrupo($_POST); //model
+		                                Gerenciador_Manager::grupoRemove($_POST);
 		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 		                        }
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorremovergrupo");
 		                        }
 		                }
-		                
-		                // Envia form para a view
 		                $this->view->form = $form;
-		        
-		
 		}		
 
 		
 		public function permissoesAction(){
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Permissões");
 				$grupoid = $this->_getParam('grupo');
- 				
-				$bd = Zend_Registry::get('db');
- 				$select = $bd->select()
-                 				->from('tb_grupos')
-						->where('id',$grupoid);
- 				$stmt = $bd->query($select);
- 				$result = $stmt->fetchAll();
-				print_r($result);
-
-		                /*
-		                // Parse do arquivo de formulário
-		                $xml = new Zend_Config_Xml( Zend_Registry::get("config")->system->path->base .
-		                                              "/modules/porteiro/forms/permissoes.xml" );
-		                // Cria objeto Snep_Form
-		                $form = new Snep_Form($xml);
-		                $form->setMethod('post');
-		                $form->setEnctype(Zend_Form::ENCTYPE_URLENCODED);
-		        
-		                // Verifica se existe dados sendo enviados via $_POST
-		                // Se for verdadeiro, é porque o formulário foi submetido.
-		                if ($this->_request->getPost()) {
-		                        // Chama método isValid() é confronta os dados submetidos pelo formulário.
-		                        $isValid = $form->isValid($_POST);
-		                        // Caso tudo seja válido chama a classe (Model) para inserir o dado.
-		                        if( $isValid ) {
-		                                Gerenciador_Manager::permissoes($_POST);
-		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
-		                        }
-		                        else {
-		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorpermissoes");
-		                        }
-		                }
-		                
-		                // Envia form para a view
-		                $this->view->form = $form;
-		 */
+				$this->view->status = $this->_getParam('grupo');
+				print_r($grupoid);
+				if ($this->_request->isPost()) {
+					$data = $this->_request->getPost();
+					print_r($data);
+				}
 		}
 }
-
 ?>
 

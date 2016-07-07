@@ -1,48 +1,63 @@
 <?php
  
 class Gerenciador_Manager { 
+	
+        static $db = Zend_Registry::get('db');
 
-	public static function porteiroAdd()
-	{}
-	public static function porteiroGetAll()
-	{}
-	public static function porteiroGetId($id)
-	{}
-	public static function porteiroDelId($id)
-	{}
-	public static function porteiroGetByPermissao($idPermissao)
-	{}
-
-        public static function addporteiro($data)
+	public static function insertData($tabela, $insert_data)
 	{
-                $db = Zend_Registry::get('db');
-                $calendario = date("Y-m-d H:i");
-                $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['nome'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "cadastro" => $calendario, "atualizado" => $calendario);
                 $db->beginTransaction();
                 try{
-                        $db->insert('tb_porteiro', $insert_data);
-                        $db->commit();
-                }catch(Exception $e){
-                $db->rollback();
-        	}
-	}     
-
-        public static function editporteiro($data){
-                $db = Zend_Registry::get('db');
-                $calendario =  date("Y-m-d H:i");
-                $insert_data = array("ip" => $data['ip'], "porta" => $data['porta'], "transporte" => $data['transporte'], "mac" => $data['mac'], "nome" => $data['no    me'], "rele1" => $data['rele1'], "rele2" => $data['rele2'], "cadastro" => $calendario, "atualizado" => $calendario);
-                $db->beginTransaction();
-                try{
-                        $db->update('tb_porteiro' , $insert_data, "mac = '" . $data['mac'] . "'");
+                        $db->insert($tabela, $insert_data);
                         $db->commit();
                 }catch(Exception $e){
                 $db->rollback();
                 }   
+	}
+	
+	public static function editData($tabela, $mac, $insert_data);
+	{
+                $db->beginTransaction();
+                try{
+                        $db->update('tb_porteiro' , $insert_data, "mac = '" . $mac . "'");
+                        $db->commit();
+                }catch(Exception $e){
+                $db->rollback();
+                }
+	}
+	
+        public static function porteiroAdd($data)
+	{
+                $calendario = date("Y-m-d H:i");
+                $insert_data = array("ip" => $data['ip'],
+				     "porta" => $data['porta'],
+				     "transporte" => $data['transporte'],
+				     "mac" => $data['mac'],
+				     "nome" => $data['nome'],
+				     "rele1" => $data['rele1'],
+				     "rele2" => $data['rele2'],
+ 				     "cadastro" => $calendario,
+			             "atualizado" => $calendario);
+
+                Gerenciador_Manager::insertData('tb_porteiro', $insert_data);
+	}     
+
+        public static function porteiroEdit($data)
+	{
+                $calendario =  date("Y-m-d H:i");
+                $insert_data = array("ip" => $data['ip'],
+				     "porta" => $data['porta'],
+				     "transporte" => $data['transporte'],
+				     "mac" => $data['mac'],
+				     "nome" => $data['nome'],
+				     "rele1" => $data['rele1'],
+				     "rele2" => $data['rele2'],
+				     "atualizado" => $calendario);
+                Gerenciador_Manager::editData('tb_porteiro', $data['mac'], $insert_data);
         }   
 
-        public static function rmporteiro($data) {
-
-                $db = Zend_Registry::get('db');
+        public static function porteiroRemove($data)
+	{
                 $mac = $data['mac'];
                 $db->beginTransaction();
 
@@ -57,23 +72,17 @@ class Gerenciador_Manager {
 
         }
 
-        public static function addgrupo($data)
+        public static function grupoAdd($data)
         {   
-                $db = Zend_Registry::get('db');
                 $calendario = date("Y-m-d H:i");
-                $insert_data = array("grupo" => $data['grupo'], "cadastro" => $calendario, "atualizado" => $calendario);
-                $db->beginTransaction();
-                try{
-                        $db->insert('tb_grupos', $insert_data);
-                        $db->commit();
-                }catch(Exception $e){
-                $db->rollback();
-                }   
+                $insert_data = array("grupo" => $data['grupo'],
+				     "cadastro" => $calendario,
+				     "atualizado" => $calendario);
+		Gerenciador_Manager::insertData('tb_grupos', $insert_data);
         } 
 
-        public static function rmgrupo($data) {
-
-                $db = Zend_Registry::get('db');
+        public static function grupoRemove($data)
+	{
                 $grupo = $data['grupo'];
                 $db->beginTransaction();
 
@@ -87,8 +96,9 @@ class Gerenciador_Manager {
                 }
 
         }
-	public static oi($data){}
-        public static function permissoes($data){
+
+	public static function permissoes($data)
+	{
 
 		print_r($data);
 /*

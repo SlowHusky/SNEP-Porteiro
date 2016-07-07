@@ -7,13 +7,6 @@
                 jQuery(document).ready(function(){
                         jQuery('#example').DataTable();
 
-			jQuery('.red').click(function(){
-				var id = $(this).attr('id');
-				//falta transformar isso para uma string e enviar//
-				var texto = "$this->_redirect('/porteiro/gerenciador/permissoes/grupo/"+String(id)+"');";
-				
-			});
-		});
 	</script>
 <meta charset="UTF-8"> 
 </head>
@@ -41,7 +34,7 @@ $result = $stmt->fetchAll();
                 {
                 ?>
                         <tr>
-                                <td><a id="<?=$row['grupo']?>" class="red" href="/">&nbsp &nbsp &nbsp <?=$row['grupo']?></a></td>
+                                <td><a id="<?=$row['grupo']?>" class="red" href="/snep/index.php/porteiro/gerenciador/permissoes?grupo=<?=$row['grupo']?>">&nbsp &nbsp &nbsp <?=$row['grupo']?></a></td>
                                 <td><?=$row['cadastro']?></td>
                                 <td><?=$row['atualizado']?></td>
                         </tr>
