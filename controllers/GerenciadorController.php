@@ -37,8 +37,8 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
                         		$isValid = $form->isValid($_POST);
                         		// Caso tudo seja válido chama a classe (Model) para inserir o dado.
                         		if( $isValid ) { 
-                                        	//Gerenciador_Manager::porteiroAdd($_POST);
-                                                //$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+                                        	Gerenciador_Manager::porteiroAdd($_POST);
+                                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
                                                 print_r($_POST);
 
                         		}   
@@ -134,6 +134,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 				if ($this->_request->isPost()) {
 					$data = $this->_request->getPost();
 					print_r($data);
+					Gerenciador_Manager::permissoes($data);
 				}
 		}
 }

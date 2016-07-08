@@ -44,8 +44,8 @@
 	            <options>
 	                <label>Selecione o protocolo:</label>
 	                <multioptions>
-	                    <opcao1> TCP </opcao1>
-	                    <opcao2> UDP </opcao2>>
+	                    <tcp> TCP </tcp>
+	                    <udp> UDP </udp>
 	                </multioptions>
 	            </options>
         	</transporte>
