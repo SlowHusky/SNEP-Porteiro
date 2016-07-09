@@ -130,10 +130,10 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Permissões");
 				$grupoid = $this->_getParam('grupo');
 				$this->view->status = $this->_getParam('grupo');
-				print_r($grupoid);
+				//print_r($grupoid);
 				if ($this->_request->isPost()) {
 					$data = $this->_request->getPost();
-					print_r($data);
+					//print_r($data);
 					Gerenciador_Manager::permissoes($data);
 				}
 		}

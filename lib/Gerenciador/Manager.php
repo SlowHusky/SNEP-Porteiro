@@ -1,12 +1,13 @@
 <?php
- 
+
 class Gerenciador_Manager { 
 	
-        
+
 	public static function oi($data){
 		print_r($data);	
 	}
-	
+
+        
 	public static function getDatabase($tabela)
 	{
         	$db = Zend_Registry::get('db');
@@ -57,7 +58,7 @@ class Gerenciador_Manager {
 		$tabela = 'tb_porteiro';
                 $db->beginTransaction();
                 try{
-                        $db->insert('tb_porteiro', $insert_data);
+                        $db->insert($tabela, $insert_data);
                         $db->commit();
                 }catch(Exception $e){
                 $db->rollback();
@@ -77,7 +78,15 @@ class Gerenciador_Manager {
 				     "rele1" => $data['rele1'],
 				     "rele2" => $data['rele2'],
 				     "atualizado" => $calendario);
-                Gerenciador_Manager::editData('tb_porteiro', $data['mac'], $insert_data);
+		$mac = $data['mac'];
+                $db->beginTransaction();
+                try{
+                        $db->update('tb_porteiro' , $insert_data, "mac = '" . $mac . "'");
+                        $db->commit();
+                }catch(Exception $e){
+                $db->rollback();
+                }
+  
         }   
 
         public static function porteiroRemove($data)
@@ -133,33 +142,20 @@ class Gerenciador_Manager {
 
 	public static function permissoes($data)
 	{	
+		
 		$db = Zend_Registry::get('db');
-		$selectgrupo = $db->select("id")
-				  ->from('tb_grupos')
-				  ->where('grupo = ?', $data['grupo']);
-		foreach($_POST['mac'] as $chave=>$valor){
-			$key; //exibe o ID
-			$valor; //exibe o value (Sim)
-			print_r($valor);
-			$selectporteiro = $db->select("id")
-				     ->from('tb_porteiros')
-				     ->where('mac = ?', $valor);
-			print_r($selectporteiro);
+		//print_r(Gerenciador_Database::oi($data));
+		$grupo = Gerenciador_Database::grupoGetByNome($data['grupo']);
+		foreach($_POST['mac'] as $chave=>$valor)
+		{
+			//print_r($valor);
+			$porteiro = Gerenciador_Database::porteiroGetByMAC($valor);
+
+			echo "ID Grupo: " . $grupo[0]['id'];
+			echo "ID Porteiro: " . $porteiro[0]['id'];
 		}
 		
-/*
-                $db = Zend_Registry::get('db');
-                $calendario =  date("Y-m-d H:i");
-		$quantidade = num
-                $insert_data = array("atualizado" => $calendario);
-                $db->beginTransaction();
-                try{
-                        $db->insert('senha', $insert_data);
-                        $db->commit();
-                }catch(Exception $e){
-                $db->rollback();
-                }   
-*/
+
         }   
 }
 ?>

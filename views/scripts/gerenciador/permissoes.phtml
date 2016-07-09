@@ -4,8 +4,8 @@
 <body> 
 <h2>Permissões referentes ao porteiro <?echo $this->status?>. </h2>
 <?php
-	$result = Gerenciador_Manager::getDatabase('tb_porteiro');
-
+	//$result = Gerenciador_Manager::getDatabase('tb_porteiro');
+	$result = Gerenciador_Database::porteiroGetAllAtivo();
 ?>
 <form action="permissoes" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="grupo" value="<?echo $this->status?>">	
