@@ -15,11 +15,7 @@
 
 
 <?
-$bd = Zend_Registry::get('db');
-$select = $bd->select()
-                ->from('tb_porteiro');
-$stmt = $bd->query($select);
-$result = $stmt->fetchAll();
+$result = Gerenciador_Database::getTabela('tb_porteiro');
 ?>
 <table id="example" class="display" width="100%" cellspacing="0">
     <thead>

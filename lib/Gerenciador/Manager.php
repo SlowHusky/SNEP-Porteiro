@@ -1,12 +1,6 @@
 <?php
 
 class Gerenciador_Manager { 
-	
-
-	public static function oi($data){
-		print_r($data);	
-	}
-
         
 	public static function getDatabase($tabela)
 	{
@@ -86,9 +80,7 @@ class Gerenciador_Manager {
                 }catch(Exception $e){
                 $db->rollback();
                 }
-  
-        }   
-
+	}
         public static function porteiroRemove($data)
 	{
 		$db = Zend_Registry::get('db');
@@ -96,7 +88,7 @@ class Gerenciador_Manager {
                 $db->beginTransaction();
 
                 try {
-                        $db->delete('tb_porteiro', "mac = '". $mac."'");
+                        $db->delete('tb_porteiro', "mac = '$mac'");
                         $db->commit();
 
                 } catch (Exception $e) {
@@ -130,7 +122,7 @@ class Gerenciador_Manager {
                 $db->beginTransaction();
 
                 try {
-                        $db->delete('tb_grupos', "grupo = '". $grupo."'");
+                        $db->delete('tb_grupos', "grupo = '$grupo'");
                         $db->commit();
 
                 } catch (Exception $e) {
@@ -144,18 +136,27 @@ class Gerenciador_Manager {
 	{	
 		
 		$db = Zend_Registry::get('db');
-		//print_r(Gerenciador_Database::oi($data));
 		$grupo = Gerenciador_Database::grupoGetByNome($data['grupo']);
 		foreach($_POST['mac'] as $chave=>$valor)
 		{
-			//print_r($valor);
 			$porteiro = Gerenciador_Database::porteiroGetByMAC($valor);
-
+			
 			echo "ID Grupo: " . $grupo[0]['id'];
 			echo "ID Porteiro: " . $porteiro[0]['id'];
+	             
+        	        $insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro[0]['id']);
+                	$tabela = 'tb_porteirogrupos';
+                	$db->beginTransaction();
+                	try{
+                        	$db->insert($tabela, $insert_data);
+                        	$db->commit();
+                	}catch(Exception $e){
+                		$db->rollback();
+                	}   
+
 		}
 		
 
-        }   
+        }  
 }
 ?>

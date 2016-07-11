@@ -1,6 +1,7 @@
 <html>
 <head>
         <link rel=stylesheet" href="index.css">
+	<meta charset="UTF-8"> 
         <script type="text/javascript" src="/snep/modules/porteiro/jquery/datatables.min.js"></script>
         <script type="text/javascript" src="/snep/modules/porteiro/jquery/jquery.dataTables.min.css"></script>
         <script type='text/javascript'>
@@ -18,11 +19,7 @@
 <h1>&nbsp</h1>
 
 <?
-$bd = Zend_Registry::get('db');
-$select = $bd->select()
-                ->from('senha');
-$stmt = $bd->query($select);
-$result = $stmt->fetchAll();
+$result = Senha_Database::getTabela('senha');
 ?>
 <table id="example" class="display" width="100%" cellspacing="0">
     <thead>

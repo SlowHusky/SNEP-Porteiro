@@ -23,11 +23,7 @@
 <h1>&nbsp</h1>
 
 <?
-$bd = Zend_Registry::get('db');
-$select = $bd->select()
-		->from('rfid');
-$stmt = $bd->query($select);
-$result = $stmt->fetchAll();
+$result = Rfid_Database::getTabela('rfid');
 ?>
 <table id="example" class="display" width="100%" cellspacing="0">
     <thead>

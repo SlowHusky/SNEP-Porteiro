@@ -8,17 +8,13 @@
                         jQuery('#example').DataTable();
 
 	</script>
-<meta charset="UTF-8"> 
+	<meta charset="UTF-8"> 
 </head>
 <?php echo $this->text ?>
 <?php echo $this->form ?>
 
 <?
-$bd = Zend_Registry::get('db');
-$select = $bd->select()
-                ->from('tb_grupos');
-$stmt = $bd->query($select);
-$result = $stmt->fetchAll();
+$result = Gerenciador_Database::getTabela('tb_grupos');
 ?>
 <table id="example" class="display" width="100%" cellspacing="0">
     <thead>

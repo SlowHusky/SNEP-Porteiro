@@ -44,6 +44,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
                         		}   
                         		else {
                                 		$this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrarporteiro");
+						print_r("Um erro foi encontrado, por favor revise os campos.");
                       			}   
                 		}		
                 		// Envia form para a view
@@ -130,10 +131,8 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                $this->view->breadcrumb = $this->view->translate("Porteiro >> Permissões");
 				$grupoid = $this->_getParam('grupo');
 				$this->view->status = $this->_getParam('grupo');
-				//print_r($grupoid);
 				if ($this->_request->isPost()) {
 					$data = $this->_request->getPost();
-					//print_r($data);
 					Gerenciador_Manager::permissoes($data);
 				}
 		}
