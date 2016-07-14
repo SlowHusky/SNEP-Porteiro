@@ -1,6 +1,110 @@
 <?php
 
 class Gerenciador_Manager { 
+
+
+        public static function getTabela($tabela)
+        {   
+                $db = Zend_Registry::get('db');
+                $select = $db->select()
+                             ->from($tabela);
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }   
+
+        public static function porteiroGetAllAtivo()
+        {   
+                // Recupera instancia do Banco de dados no Zend_Registry
+                $db = Zend_Registry::get('db');
+
+                // Cria um objeto select
+                $select = $db->select()
+                     // Tabela do select e indices que deverão ser retornados.
+                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'));
+
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+
+                return $result;
+        }   
+        public static function porteiroGetByID($id)
+        {
+                // Recupera instancia do Banco de dados no Zend_Registry
+                $db = Zend_Registry::get('db');
+
+                // Cria um objeto select
+                $select = $db->select()
+                     // Tabela do select e indices que deverão ser retornados.
+                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'))
+                     // Método Where, estabelece critérios pra consulta.
+                     ->where("id = $id")
+                     // Método Limit, limita o número de registros.
+                     ->limit('1');
+
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }
+
+        public static function porteiroGetByMAC($mac)
+        {
+                // Recupera instancia do Banco de dados no Zend_Registry
+                $db = Zend_Registry::get('db');
+
+                // Cria um objeto select
+                $select = $db->select()
+                     // Tabela do select e indices que deverão ser retornados.
+                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'))
+                     // Método Where, estabelece critérios pra consulta.
+                     ->where("mac = '$mac'");
+
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }
+
+
+
+
+        public static function grupoGetByID($id)
+        {
+                // Recupera instancia do Banco de dados no Zend_Registry
+                $db = Zend_Registry::get('db');
+
+                // Cria um objeto select
+                $select = $db->select()
+                     // Tabela do select e indices que deverão ser retornados.
+                     ->from('tb_grupos', array('id', 'grupo', 'cadastro', 'atualizado'))
+                     // Método Where, estabelece critérios pra consulta.
+                     ->where("id = $id")
+                     // Método Limit, limita o número de registros.
+                     ->limit('1');
+
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }
+
+        public static function grupoGetByNome($grupo)
+        {
+                // Recupera instancia do Banco de dados no Zend_Registry
+                $db = Zend_Registry::get('db');
+
+                // Cria um objeto select
+                $select = $db->select()
+                     // Tabela do select e indices que deverão ser retornados.
+                     ->from('tb_grupos', array('id', 'grupo', 'cadastro', 'atualizado'))
+                     // Método Where, estabelece critérios pra consulta.
+                     ->where("grupo = '$grupo'");
+
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }
+
+
+
         
 	public static function getDatabase($tabela)
 	{
@@ -11,6 +115,18 @@ class Gerenciador_Manager {
         	$result = $stmt->fetchAll();
 		return $result;
 	}	
+
+        public static function getTableByIdGrupo($tabela, $idGrupo)
+        {   
+                $db = Zend_Registry::get('db');
+                $select = $db->select()
+                             ->from($tabela)
+	                     ->where("grupo = '$idGrupo'");
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+                return $result;
+        }     
+
 
 	public static function insertData($tabela, $insert_data)
 	{
@@ -132,28 +248,44 @@ class Gerenciador_Manager {
 
         }
 
+	public static function verificaSeExiste($idGrupo, $idPorteiro, $tabela)
+	{
+		$relacao = self::getTableByIdGrupo($tabela, $idGrupo);
+		$existe = false;
+		foreach($relacao as $row)
+		{
+			if($row['porteiro'] == $idPorteiro){
+				$existe = true;
+				break;
+			}
+		}
+		return $existe;		
+	}
+
 	public static function permissoes($data)
 	{	
 		
 		$db = Zend_Registry::get('db');
-		$grupo = Gerenciador_Database::grupoGetByNome($data['grupo']);
+		$grupo = self::grupoGetByNome($data['grupo']);
 		foreach($_POST['mac'] as $chave=>$valor)
 		{
-			$porteiro = Gerenciador_Database::porteiroGetByMAC($valor);
+			$porteiro = self::porteiroGetByMAC($valor);
 			
 			echo "ID Grupo: " . $grupo[0]['id'];
 			echo "ID Porteiro: " . $porteiro[0]['id'];
-	             
-        	        $insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro[0]['id']);
-                	$tabela = 'tb_porteirogrupos';
-                	$db->beginTransaction();
-                	try{
-                        	$db->insert($tabela, $insert_data);
-                        	$db->commit();
-                	}catch(Exception $e){
-                		$db->rollback();
-                	}   
 
+	                $status = self::verificaSeExiste($grupo[0]['id'], $porteiro[0]['id'], 'tb_porteirogrupos');
+			if ($status == false){ 
+     		   	        $insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro[0]['id']);
+	                	$tabela = 'tb_porteirogrupos';
+	                	$db->beginTransaction();
+               		 	try{
+                    	   	 	$db->insert($tabela, $insert_data);
+                	        	$db->commit();
+                		}catch(Exception $e){
+        	        		$db->rollback();
+	                	}   
+			}
 		}
 		
 
