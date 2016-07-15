@@ -1,20 +1,38 @@
 <head>
 <meta charset="UTF-8">
+<script type='text/javascript'>
+	jQuery(document).ready(function(){
+        	jQuery.fn.check = function(estado){
+			if (estado === true){
+			     jQuery(this).prop("checked", true);
+			};
+		};
+});
+</script>
+
 </head>
 <body> 
 <h2>Permissões referentes ao porteiro <?echo $this->status?>. </h2>
 <?php
-	//$result = Gerenciador_Manager::getDatabase('tb_porteiro');
-	$result = Gerenciador_Database::porteiroGetAllAtivo();
+	$result = Gerenciador_Manager::porteiroGetAllAtivo();
+	$grupo  = Gerenciador_Manager::grupoGetByNome($this->status);
 ?>
 <form action="permissoes" method="post" enctype="application/x-www-form-urlencoded">
         <input type="hidden" name="grupo" value="<?echo $this->status?>">	
         <?foreach ($result as $row)
                 {   
-                ?> 
-			<input type="checkbox" name="mac[]" value="<?=$row['mac']?>"><?=$row['mac']?><br>
+                ?>
+                        <script type="text/javascript">        
+                        <?$porteiro = Gerenciador_Manager::porteiroGetByMAC($row['mac']);?>
+                        <?$estado = Gerenciador_Manager::verificaSeExiste($grupo[0]['id'], $porteiro[0]['id'], 'tb_porteirogrupos')?>
+			var estado = <?echo $estado?>;
+			jQuery("#<?echo $row['mac']?>").check(estado);			
+                        </script>
+
+			<input type="checkbox" name="mac[]" value="<?=$row['mac']?>" id="<?=$row['mac']?>"> <?=$row['mac']?> <br>
 		<? } ?>
-	<input type="submit" value="Enviar">
+	<input type="submit" value="Enviar" class="btn btn-outline btn-add">
+	<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'gerenciador', 'action' => 'index'), null, true) ?>" class="btn btn-outline btn-add">Retornar</a>
 </form>
 </body>
 

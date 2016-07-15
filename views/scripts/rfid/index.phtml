@@ -9,19 +9,28 @@
    			jQuery('#example').DataTable();
 });
 </script>
+<style>
+.dataTables_length, .dataTables_filter,td, tr, th{ 
+        text-align: center;
+}
+.dataTables_paginate, .dataTables_info, #example_wrapper{
+        text-align: center;
+        align: center;
+}
+</style>
 
 
 </head>
-<body><h1>Controlador via RFID.</h1>
-<p>Esse é o controlador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
+<body><h1 align="center">Controlador via RFID.</h1>
+<p align="center">Esse é o controlador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
 
 
-
-<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'cadastrarrfid'), null, true) ?>" class="btn">Cadastrar</a>
-<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'editarrfid'), null, true) ?>" class="btn">Editar</a>
-<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'removerrfid'), null, true) ?>" class="btn">Remover</a>
+<div align="center">
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'cadastrarrfid'), null, true) ?>" class="btn btn-outline btn-add">Cadastrar</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'editarrfid'), null, true) ?>" class="btn btn-outline btn-add">Editar</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'rfid', 'action' => 'removerrfid'), null, true) ?>" class="btn btn-outline btn-add">Remover</a>
 <h1>&nbsp</h1>
-
+</div>
 <?
 $result = Rfid_Database::getTabela('rfid');
 ?>
