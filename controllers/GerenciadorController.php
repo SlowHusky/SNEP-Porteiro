@@ -134,6 +134,7 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 				if ($this->_request->isPost()) {
 					$data = $this->_request->getPost();
 					Gerenciador_Manager::permissoes($data);
+					$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 				}
 		}
 }

@@ -229,13 +229,11 @@ class Gerenciador_Manager {
 		
 		$db = Zend_Registry::get('db');
 		$grupo = self::grupoGetByNome($data['grupo']);
+		$porteiroId = array();
 		foreach($_POST['mac'] as $chave=>$valor)
 		{
 			$porteiro = self::porteiroGetByMAC($valor);
-			
-			echo "ID Grupo: " . $grupo[0]['id'] . "          " ;
-			echo "ID Porteiro: " . $porteiro[0]['id'] . "            ";
-
+			array_push($porteiroId, $porteiro[0]['id']);
 	                $status = self::verificaSeExiste($grupo[0]['id'], $porteiro[0]['id'], 'tb_porteirogrupos');
 			if ($status == false){ 
      		   	        $insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro[0]['id']);
@@ -249,8 +247,9 @@ class Gerenciador_Manager {
 	                	}   
 			}
 		}
-		
-
+		$grupoId = $grupo[0]['id'];
+		$delete = $db->delete('tb_porteirogrupos', "grupo = '$grupoId' AND porteiro NOT IN (". implode(",", $porteiroId) . ")");
+		    	     
         }  
 }
 ?>
