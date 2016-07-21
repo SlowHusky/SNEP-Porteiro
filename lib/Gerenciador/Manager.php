@@ -57,12 +57,13 @@ class Gerenciador_Manager {
                 return $result;
         }
 
-        public static function grupoGetByNome($grupo)
+        public static function grupoGetByNome($nome)
         {
                 $db = Zend_Registry::get('db');
                 $select = $db->select()
                      ->from('tb_grupos', array('id', 'grupo', 'cadastro', 'atualizado'))
-                     ->where("grupo = '$grupo'");
+                     ->where("grupo = '$nome'")
+                     ->limit('1');
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
                 return $result;
@@ -114,6 +115,25 @@ class Gerenciador_Manager {
                 }
 	}
 	
+	public function verificarGrupo($nomeGrupo)
+	{	
+		$db = Zend_Registry::get('db');
+                $relacao = self::getDatabase('tb_grupos');
+		print_r($nomeGrupo);
+		$existe = false;
+                foreach($relacao as $row)
+                {
+			if($row['grupo'] == $nomeGrupo){
+				$existe = true;
+				break;
+                        }
+                
+		
+                }
+		return $existe;
+	
+	}
+	
         public static function porteiroAdd($data)
 	{
 		$db = Zend_Registry::get('db');
@@ -137,6 +157,7 @@ class Gerenciador_Manager {
                 }
 
 	}     
+
 
         public static function porteiroEdit($data)
 	{	
@@ -197,9 +218,12 @@ class Gerenciador_Manager {
 	{
 		$db = Zend_Registry::get('db');
                 $grupo = $data['grupo'];
-                $db->beginTransaction();
-
+		$grupoId = self::grupoGetByNome($grupo);
+		print_r($grupoId);
+		$db->beginTransaction();
+		
                 try {
+			$db->delete('tb_porteirogrupos', "grupo = '$grupoId'");
                         $db->delete('tb_grupos', "grupo = '$grupo'");
                         $db->commit();
 
@@ -248,8 +272,7 @@ class Gerenciador_Manager {
 			}
 		}
 		$grupoId = $grupo[0]['id'];
-		$delete = $db->delete('tb_porteirogrupos', "grupo = '$grupoId' AND porteiro NOT IN (". implode(",", $porteiroId) . ")");
-		    	     
+		$delete = $db->delete('tb_porteirogrupos', "grupo = '$grupoId' AND porteiro NOT IN (". implode(",", $porteiroId) . ")");    	     
         }  
 }
 ?>

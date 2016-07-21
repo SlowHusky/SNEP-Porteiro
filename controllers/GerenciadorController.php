@@ -98,13 +98,22 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                if ($this->_request->getPost()) {
 		                        $isValid = $form->isValid($_POST);
 		                        if( $isValid ) {
-		                                Gerenciador_Manager::grupoAdd($_POST);
-		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
-		                        }
+					
+						$existeGrupoMesmoNome = Gerenciador_Manager::verificarGrupo($_POST['grupo']); 
+						if ( $existeGrupoMesmoNome == false){
+							//print_r($existeGrupoMesmoNome);
+		                                	Gerenciador_Manager::grupoAdd($_POST);
+		                               	 	$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+		                       		}
+						else{
+							$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/errogruponomeigual");
+						}
+					}
 		                        else {
-		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrargrupo");
-		                        }
-		                }
+		                        	        $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrargrupo");
+		                       	}
+		                	
+				}
 		                $this->view->form = $form;
 		}
 		
@@ -117,11 +126,11 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        $isValid = $form->isValid($_POST);
 		                        if( $isValid ) {
 		                                Gerenciador_Manager::grupoRemove($_POST);
-		                                $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
-		                        }
+		                               // $this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+		                        }  /*
 		                        else {
 		                                $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorremovergrupo");
-		                        }
+		                        }*/
 		                }
 		                $this->view->form = $form;
 		}		
