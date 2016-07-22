@@ -1,12 +1,18 @@
+<html>
 <head>
 <style>
-body{
-	text-align: center;
-	align: center;
+p, h1, div{
+	text-align:center;
+	align:center;
 }
 </style>
 </head>
 <body>
 <h1>Error: Um grupo já apresenta esse mesmo nome.</h1>
 <p>Por favor, utilize outro nome para o grupo.</p>
+<div>
+<a class="btn btn-outline btn-add" href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'gerenciador', 'action' => 'cadastrargrupo'), null, true) ?>">Retornar</a>
+</div>
 </body>
+</html>
+

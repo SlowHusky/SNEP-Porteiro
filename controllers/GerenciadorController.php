@@ -100,14 +100,16 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 		                        if( $isValid ) {
 					
 						$existeGrupoMesmoNome = Gerenciador_Manager::verificarGrupo($_POST['grupo']); 
-						if ( $existeGrupoMesmoNome == false){
-							//print_r($existeGrupoMesmoNome);
+						if ( $existeGrupoMesmoNome == false){						
 		                                	Gerenciador_Manager::grupoAdd($_POST);
-		                               	 	$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
+		                               	 	$this->_redirect($this->getRequest()->getModuleName() .
+								 "/gerenciador/index");
 		                       		}
 						else{
-							$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/errogruponomeigual");
+							$this->_redirect($this->getRequest()->getModuleName() . 
+								"/gerenciador/errogruponomeigual");
 						}
+
 					}
 		                        else {
 		                        	        $this->_redirect($this->getRequest()->getModuleName(). "/gerenciador/errorcadastrargrupo");
@@ -146,6 +148,8 @@ class Porteiro_GerenciadorController extends Zend_Controller_Action
 					$this->_redirect($this->getRequest()->getModuleName() . "/gerenciador/index");
 				}
 		}
+		
+		public function errogruponomeigualAction(){}
 }
 ?>
 
