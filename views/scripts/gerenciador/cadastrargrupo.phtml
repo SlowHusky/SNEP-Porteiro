@@ -17,12 +17,20 @@
         text-align: center;
         align: center;
 }
+
+#divform{
+	
+	left:50%;
+	align:center;
+}
+
 </style>
  
 </head>
 <?php echo $this->text ?>
+<div id="divform">
 <?php echo $this->form ?>
-
+</div>
 <?
 $result = Gerenciador_Manager::getTabela('tb_grupos');
 ?>

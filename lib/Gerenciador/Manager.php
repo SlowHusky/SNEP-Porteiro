@@ -153,7 +153,7 @@ class Gerenciador_Manager {
                         $db->insert($tabela, $insert_data);
                         $db->commit();
                 }catch(Exception $e){
-                $db->rollback();
+                	$db->rollback();
                 }
 
 	}     
@@ -184,17 +184,18 @@ class Gerenciador_Manager {
 	{
 		$db = Zend_Registry::get('db');
                 $mac = $data['mac'];
+		$macId = self::porteiroGetByMAC($mac);
+		$macId = $macId['id'];
                 $db->beginTransaction();
 
                 try {
+			$db->delete('tb_porteirogrupos', "porteiro = '$macId'");
                         $db->delete('tb_porteiro', "mac = '$mac'");
                         $db->commit();
 
                 } catch (Exception $e) {
                         $db->rollBack();
-
-                }
-
+	        }  
         }
 
         public static function grupoAdd($data)
@@ -219,7 +220,6 @@ class Gerenciador_Manager {
 		$db = Zend_Registry::get('db');
                 $grupo = $data['grupo'];
 		$grupoId = self::grupoGetByNome($grupo);
-		print_r($grupoId);
 		$db->beginTransaction();
 		
                 try {
