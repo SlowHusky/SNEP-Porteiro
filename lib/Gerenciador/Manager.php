@@ -2,6 +2,11 @@
 
 class Gerenciador_Manager { 
 
+	public static function getEcho($str)
+	{
+		return $str;
+	}
+
 
         public static function getTabela($tabela)
         {   
@@ -17,7 +22,7 @@ class Gerenciador_Manager {
         {   
                 $db = Zend_Registry::get('db');
                 $select = $db->select()
-                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'));
+                     ->from('tb_porteiro', array('id','ip','porta', 'transporte', 'mac','nome', 'rele1', 'rele2', 'ramal', 'cadastro', 'atualizado'));
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
                 return $result;
@@ -26,23 +31,46 @@ class Gerenciador_Manager {
         {
                 $db = Zend_Registry::get('db');
                 $select = $db->select()
-                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'))
+                     ->from('tb_porteiro', array('id','ip','porta', 'transporte', 'mac','nome', 'rele1', 'rele2', 'ramal',  'cadastro', 'atualizado'))
                      ->where("id = $id")
                      ->limit('1');
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
-                return $result;
+		if (count($result) > 1) 
+		{ // erro 
+			return Array();
+		}
+		else if (count($result) == 1)
+		{ // OK
+			return $result[0];
+		} else
+		{  // erro
+			return Array();
+		} 
         }
 
         public static function porteiroGetByMAC($mac)
         {
                 $db = Zend_Registry::get('db');
                 $select = $db->select()
-                     ->from('tb_porteiro', array('id','ip', 'transporte', 'mac','nome', 'rele1', 'rele2', 'cadastro', 'atualizado'))
+                     ->from('tb_porteiro', array('id','ip','porta', 'transporte', 'mac','nome', 'rele1', 'rele2', 'ramal',  'cadastro', 'atualizado'))
                      ->where("mac = '$mac'");
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
-                return $result;
+
+                if (count($result) > 1)      
+                { // erro 
+                        return Array();
+                } 
+                else if (count($result) == 1)
+                { // OK
+                        return $result[0];
+                }
+		else
+                {  // erro
+                        return Array();
+                }
+
         }
 
         public static function grupoGetByID($id)
@@ -145,6 +173,7 @@ class Gerenciador_Manager {
 				     "nome" => $data['nome'],
 				     "rele1" => $data['rele1'],
 				     "rele2" => $data['rele2'],
+				     "ramal" => $data['ramal'],
  				     "cadastro" => $calendario,
 			             "atualizado" => $calendario);
 		$tabela = 'tb_porteiro';
@@ -170,6 +199,7 @@ class Gerenciador_Manager {
 				     "nome" => $data['nome'],
 				     "rele1" => $data['rele1'],
 				     "rele2" => $data['rele2'],
+                                     "ramal" => $data['ramal'],
 				     "atualizado" => $calendario);
 		$mac = $data['mac'];
                 $db->beginTransaction();
@@ -185,12 +215,11 @@ class Gerenciador_Manager {
 		$db = Zend_Registry::get('db');
                 $mac = $data['mac'];
 		$macId = self::porteiroGetByMAC($mac);
-		$macId = $macId['id'];
                 $db->beginTransaction();
 
                 try {
-			$db->delete('tb_porteirogrupos', "porteiro = '$macId'");
-                        $db->delete('tb_porteiro', "mac = '$mac'");
+			$db->delete('tb_porteirogrupos', "porteiro = " . $macId['id']);
+                        $db->delete('tb_porteiro', "mac = " . $macId['mac']);
                         $db->commit();
 
                 } catch (Exception $e) {
@@ -246,6 +275,47 @@ class Gerenciador_Manager {
 			}
 		}
 		return $existe;		
+	}
+
+	public static function getGrupoByRfid($idRfid)
+	{
+		$db = Zend_Registry::get('db');
+                $tabela = self::getTabela("rfid");
+		$resposta = array();
+                $existe = false;
+                foreach ($tabela as $row)
+		{
+			if ($row["rfid"] == $idRfid)
+                        {
+                                $existe = true;
+				$resposta[] = $existe;
+                                $resposta[] = $row["grupo"];
+				break;
+                        }
+			else 
+			{
+				$resposta[] = $existe;
+				$resposta[] = "false";
+			}
+		}
+		return $resposta;
+		
+	}
+
+	public static function verificaRFID($idRfid)
+	{
+		$db = Zend_Registry::get('db');
+		$tabela = self::getTabela("rfid");
+		$existe = false;
+		foreach ($tabela as $row)
+		{
+			if ($row["rfid"] == $idRfid)
+			{
+				$existe = true;
+				break;
+			}
+		}
+		return ($existe) ? 1 : 0;
 	}
 
 	public static function permissoes($data)

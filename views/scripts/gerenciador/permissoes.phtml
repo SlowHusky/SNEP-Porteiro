@@ -2,7 +2,7 @@
 <meta charset="UTF-8">
 </head>
 <body> 
-<h2>Permissões referentes ao porteiro <?echo $this->status?>. </h2>
+<h2>Permissões de porteiros referentes ao grupo <?echo $this->status?>. </h2>
 <?php
 	$result = Gerenciador_Manager::porteiroGetAllAtivo();
 	$grupo  = Gerenciador_Manager::grupoGetByNome($this->status);

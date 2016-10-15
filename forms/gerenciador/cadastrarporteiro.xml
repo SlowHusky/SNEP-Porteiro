@@ -92,7 +92,21 @@
                         </options>
                 </rele2>
 
-
+                <ramal>
+                        <type>text</type>
+                        <options>
+                                <label>Ramal: </label>
+                                <validators>
+                                        <regex>
+                                                <validator>regex</validator>
+                                                <options>
+                                                        <pattern>/^\d.{1,6}$/</pattern>
+                                                </options>
+                                        </regex>
+                                </validators>
+                                <required>true</required>
+                        </options>
+                </ramal>
                 <submit>
                         <type>submit</type>
                         <options>

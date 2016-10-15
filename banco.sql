@@ -19,10 +19,12 @@ CREATE TABLE IF NOT EXISTS `snep`.`tb_porteiro` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `ip` VARCHAR(31) NOT NULL,
   `transporte` VARCHAR(12) NOT NULL,
+  `porta` VARCHAR(10) NOT NULL,
   `mac` VARCHAR(31) NOT NULL,
   `nome` VARCHAR(100) NOT NULL,
   `rele1` VARCHAR(20) NOT NULL,
   `rele2` VARCHAR(20) NOT NULL,
+  `ramal` VARCHAR(45) NOT NULL,
   `cadastro` VARCHAR(50) NOT NULL,
   `atualizado` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`id`));
