@@ -7,7 +7,7 @@ class Gerenciador_Manager {
 		return $str;
 	}
 
-
+	/* Retoma com todos os dados de uma tabela */
         public static function getTabela($tabela)
         {   
                 $db = Zend_Registry::get('db');
@@ -17,7 +17,7 @@ class Gerenciador_Manager {
                 $result = $stmt->fetchAll();
                 return $result;
         }   
-
+	/* Retorna todos os porteiros ativos no momento. */
         public static function porteiroGetAllAtivo()
         {   
                 $db = Zend_Registry::get('db');
@@ -26,7 +26,9 @@ class Gerenciador_Manager {
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
                 return $result;
-        }   
+        } 
+
+	/* Retorna o porteiro usando como entrada seu id. */  
         public static function porteiroGetByID($id)
         {
                 $db = Zend_Registry::get('db');
@@ -48,7 +50,8 @@ class Gerenciador_Manager {
 			return Array();
 		} 
         }
-
+	
+	/* Retorna o porteiro usando como entrada seu número de MAC. */
         public static function porteiroGetByMAC($mac)
         {
                 $db = Zend_Registry::get('db');
@@ -72,7 +75,8 @@ class Gerenciador_Manager {
                 }
 
         }
-
+	
+	/*Retoma um grupo usando como entrada seu id. */
         public static function grupoGetByID($id)
         {
                 $db = Zend_Registry::get('db');
@@ -84,7 +88,8 @@ class Gerenciador_Manager {
                 $result = $stmt->fetchAll();
                 return $result;
         }
-
+	
+	/*Retorna um grupo usando como entrada seu nome. */
         public static function grupoGetByNome($nome)
         {
                 $db = Zend_Registry::get('db');
@@ -97,6 +102,7 @@ class Gerenciador_Manager {
                 return $result;
         }
         
+	/*Recupera as informações entrando com uma tabela */	
 	public static function getDatabase($tabela)
 	{
         	$db = Zend_Registry::get('db');
@@ -106,7 +112,7 @@ class Gerenciador_Manager {
         	$result = $stmt->fetchAll();
 		return $result;
 	}	
-
+	/* Retorna as informações de uma linha de uma tabela, faxendo a busca pelo nome do grupo. */
         public static function getTableByIdGrupo($tabela, $idGrupo)
         {   
                 $db = Zend_Registry::get('db');
@@ -118,7 +124,7 @@ class Gerenciador_Manager {
                 return $result;
         }     
 
-
+	/*Insere dados em uma tabela. */
 	public static function insertData($tabela, $insert_data)
 	{
 		$db = Zend_Registry::get('db');
@@ -130,7 +136,8 @@ class Gerenciador_Manager {
                 $db->rollback();
                 }   
 	}
-	
+
+	/*Edita os dados de um porteiro, localizado pelo seu mac. */ 
 	public static function editData($tabela, $mac, $insert_data)
 	{
 		$db = Zend_Registry::get('db');
@@ -143,6 +150,7 @@ class Gerenciador_Manager {
                 }
 	}
 	
+	/*Verifica se o grupo está cadastrado. Retorna true ou false*/
 	public function verificarGrupo($nomeGrupo)
 	{	
 		$db = Zend_Registry::get('db');
@@ -162,6 +170,7 @@ class Gerenciador_Manager {
 	
 	}
 	
+	/* Adiciona um porteiro. */
         public static function porteiroAdd($data)
 	{
 		$db = Zend_Registry::get('db');
@@ -187,7 +196,7 @@ class Gerenciador_Manager {
 
 	}     
 
-
+	/*Edita os dados de um porteiro. */
         public static function porteiroEdit($data)
 	{	
 		$db = Zend_Registry::get('db');
@@ -210,6 +219,8 @@ class Gerenciador_Manager {
                 $db->rollback();
                 }
 	}
+
+	/* Remove um porteiro, utuliza mac como entrada. */
         public static function porteiroRemove($data)
 	{
 		$db = Zend_Registry::get('db');
@@ -226,7 +237,8 @@ class Gerenciador_Manager {
                         $db->rollBack();
 	        }  
         }
-
+	
+	/*Adiciona um grupo. */
         public static function grupoAdd($data)
         {   
 		$db = Zend_Registry::get('db');
@@ -243,7 +255,8 @@ class Gerenciador_Manager {
                 }
 
         } 
-
+	
+	/*remove um grupo */
         public static function grupoRemove($data)
 	{
 		$db = Zend_Registry::get('db');
@@ -262,7 +275,8 @@ class Gerenciador_Manager {
                 }
 
         }
-
+	
+	/*verifica se um porteiro está relacionado a um grupo. */
 	public static function verificaSeExiste($idGrupo, $idPorteiro, $tabela)
 	{
 		$relacao = self::getTableByIdGrupo($tabela, $idGrupo);
@@ -276,7 +290,8 @@ class Gerenciador_Manager {
 		}
 		return $existe;		
 	}
-
+	
+	/* Retorna um grupo, recebendo como entrada um id de RFID. */
 	public static function getGrupoByRfid($idRfid)
 	{
 		$db = Zend_Registry::get('db');
@@ -301,7 +316,8 @@ class Gerenciador_Manager {
 		return $resposta;
 		
 	}
-
+	
+	/*Retorna os dados de um RFID, usando como entrada um id. */
 	public static function verificaRFID($idRfid)
 	{
 		$db = Zend_Registry::get('db');
@@ -317,7 +333,8 @@ class Gerenciador_Manager {
 		}
 		return ($existe) ? 1 : 0;
 	}
-
+	
+	/*Verifica se um porteiro está associado a um grupo. */
 	public static function permissoes($data)
 	{	
 		
