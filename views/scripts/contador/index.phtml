@@ -1,0 +1,30 @@
+<html>
+<head>
+        <link rel=stylesheet" href="index.css">
+	<meta charset="UTF-8"> 
+        <script type="text/javascript" src="/snep/modules/porteiro/jquery/datatables.min.js"></script>
+        <script type="text/javascript" src="/snep/modules/porteiro/jquery/jquery.dataTables.min.css"></script>
+        <script type='text/javascript'>
+                jQuery(document).ready(function(){
+                        jQuery('#example').DataTable();
+});
+</script>
+<style>
+.dataTables_length, .dataTables_filter,td, tr, th{
+	text-align: center;
+}
+.dataTables_paginate, .dataTables_info{
+	text-align: center;
+	align: center;
+}
+</style>
+</head>
+<body><h1 align="center">Contabilização de uso do porteiro.</h1>
+<div align="center">
+<p>Esse é o contabilizador do porteiro eletrônico. Use os botões abaixo para ir a ação que deseja. </p>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'contador', 'action' => 'contadorrfid'), null, true) ?>" class="btn btn-outline btn-add">Contador Rfid</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'contador', 'action' => 'contadorsenha'), null, true) ?>" class="btn btn-outline btn-add">Contador Senha</a>
+<a href="<?php echo $this->url(array('module' => 'porteiro', 'controller' => 'contador', 'action' => 'contadorgeral'), null, true) ?>" class="btn btn-outline btn-add">Contador Geral</a>
+
+</body>
+</html>
