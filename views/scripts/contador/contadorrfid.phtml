@@ -23,27 +23,30 @@
 <p><p>
 
 <?
-$result = Senha_Database::getTabela('senha');
+$result = Gerenciador_Manager::getTabela('contador_rfid');
 ?>
 <table id="example" class="display" width="100%" cellspacing="0">
     <thead>
         <tr>
-            <th>Usuário</th>
-            <th>Grupo</th>
-            <th>Cadastro</th>
-            <th>Atualizado</th>
+            <th>Data</th>
+            <th>Porteiro</th>
+            <th>Ramal</th>
+            <th>RFID</th>
+            <th>Resultado</th>
         </tr>
     </thead>
     <tbody>
         <?
                 foreach ($result as $row)
                 {
+			$porteiro = Gerenciador_Manager::porteiroGetByID($row['porteiro']);
                 ?>
                         <tr>
-                                <td><?=$row['usuario']?></td>
-                                <td><?=$row['grupo']?></td>
-                                <td><?=$row['cadastro']?></td>
-                                <td><?=$row['atualizado']?></td>
+                                <td><?=$row['data']?></td>
+                                <td><?=$porteiro['mac']?></td>
+                                <td><?=$row['ramal']?></td>
+                                <td><?=$row['rfid']?></td>
+                                <td><?=$row['resultado']?></td>
                         </tr>
                 <? } ?>
     </tbody>

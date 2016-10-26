@@ -75,18 +75,82 @@ class Gerenciador_Manager {
                 }
 
         }
-	
-	/*Retoma um grupo usando como entrada seu id. */
-        public static function grupoGetByID($id)
+
+        /* Retorna o porteiro usando como entrada seu id. */
+        public static function porteiroGetByRamal($ramal)
         {
                 $db = Zend_Registry::get('db');
                 $select = $db->select()
-                     ->from('tb_grupos', array('id', 'grupo', 'cadastro', 'atualizado'))
-                     ->where("id = $id")
+                     ->from('tb_porteiro', array('id','ip','porta', 'transporte', 'mac','nome', 'rele1', 'rele2', 'ramal',  'cadastro', 'atualizado'))
+                     ->where("ramal = $ramal")
                      ->limit('1');
                 $stmt = $db->query($select);
                 $result = $stmt->fetchAll();
-                return $result;
+                if (count($result) > 1)
+                { // erro 
+                        return Array();
+                }
+                else if (count($result) == 1)
+                { // OK
+                        return $result[0];
+                } else
+                {  // erro
+                        return Array();
+                }
+        }
+
+
+        /* Retorna o porteiro usando como entrada seu id. */
+        public static function rfidGetByRfid($rfid)
+        {
+                $db = Zend_Registry::get('db');
+                $select = $db->select()
+                     ->from('rfid', array('id','rfid','grupo', 'cadastro', 'atualizado'))
+                     ->where("rfid = '$rfid'");
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+
+                if (count($result) > 1)
+                { // erro 
+                        return Array();
+                }
+                else if (count($result) == 1)
+                { // OK
+                        return $result[0];
+                }
+                else
+                {  // erro
+                        return Array();
+                }
+
+        }
+
+
+
+
+        /* Retorna o porteiro usando como entrada seu número de MAC. */
+        public static function userGetById($id)
+        {
+                $db = Zend_Registry::get('db');
+                $select = $db->select()
+                     ->from('senha', array('id','senha','usuario', 'grupo', 'cadastro','atualizado'))
+                     ->where("id = '$id'");
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+
+                if (count($result) > 1)
+                { // erro 
+                        return Array();
+                }
+                else if (count($result) == 1)
+                { // OK
+                        return $result[0];
+                }
+                else
+                {  // erro
+                        return Array();
+                }
+
         }
 	
 	/*Retorna um grupo usando como entrada seu nome. */
@@ -337,17 +401,16 @@ class Gerenciador_Manager {
 	/*Verifica se um porteiro está associado a um grupo. */
 	public static function permissoes($data)
 	{	
-		
 		$db = Zend_Registry::get('db');
 		$grupo = self::grupoGetByNome($data['grupo']);
 		$porteiroId = array();
 		foreach($_POST['mac'] as $chave=>$valor)
 		{
 			$porteiro = self::porteiroGetByMAC($valor);
-			array_push($porteiroId, $porteiro[0]['id']);
-	                $status = self::verificaSeExiste($grupo[0]['id'], $porteiro[0]['id'], 'tb_porteirogrupos');
+			array_push($porteiroId, $porteiro['id']);
+	                $status = self::verificaSeExiste($grupo[0]['id'], $porteiro['id'], 'tb_porteirogrupos');
 			if ($status == false){ 
-     		   	        $insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro[0]['id']);
+				$insert_data = array("grupo" => $grupo[0]['id'], "porteiro" => $porteiro['id']);
 	                	$tabela = 'tb_porteirogrupos';
 	                	$db->beginTransaction();
                		 	try{
@@ -359,7 +422,65 @@ class Gerenciador_Manager {
 			}
 		}
 		$grupoId = $grupo[0]['id'];
-		$delete = $db->delete('tb_porteirogrupos', "grupo = '$grupoId' AND porteiro NOT IN (". implode(",", $porteiroId) . ")");    	     
-        }  
+		if (count($porteiroId) >= 1)
+		{
+			$db->delete('tb_porteirogrupos', "grupo = '$grupoId' AND porteiro NOT IN (". implode(",", $porteiroId) . ")");
+		}
+		else
+		{
+			$db->delete('tb_porteirogrupos', "grupo = '$grupoId'");
+		}
+			    	     
+        }
+
+	/* Adiciona os dados referentes as transações de uso do rfid. */
+        public static function contadorRfid($nrfid, $ramal, $acesso)
+        {
+
+		if($acesso == true)
+		{
+			$rfid = self::rfidGetByRfid($nrfid);
+	
+
+			$porteiro = self::porteiroGetByRamal($ramal);
+                	$db = Zend_Registry::get('db');
+                	$calendario = date("Y-m-d H:i");
+ 	              	$insert_data = array("data" => $calendario,
+					     "porteiro" => $porteiro['id'],
+					     "ramal" => $ramal,
+					     "rfid" => $nrfid,
+					     "id_rfid" => $rfid['id'],
+					     "resultado" => $acesso);
+        	        $tabela = 'contador_rfid';
+           	        $db->beginTransaction();
+              	        try{
+                      	         $db->insert($tabela, $insert_data);
+                                 $db->commit();
+               		}catch(Exception $e){
+                       		 $db->rollback();
+            		}
+
+        	}
+		else
+		{
+			$porteiro = self::porteiroGetByRamal($ramal);
+			$db = Zend_Registry::get('db');
+			$calendario = date("Y-m-d H:i");
+			$insert_data = array("data" => $calendario,
+					     "porteiro" => $porteiro['id'],
+					     "ramal" => $ramal,
+					     "rfid" => $nrfid,
+					     "resultado" => $acesso);
+                        $tabela = 'contador_rfid';
+                        $db->beginTransaction();
+                        try{
+                                 $db->insert($tabela, $insert_data);
+                                 $db->commit();
+                        }catch(Exception $e){
+                                 $db->rollback();
+                        }
+		}  
+	}  					
+
 }
 ?>
