@@ -39,14 +39,14 @@ $result = Gerenciador_Manager::getTabela('contador_senha');
         <?
                 foreach ($result as $row)
                 {
-                        $porteiro = Gerenciador_Manager::porteiroGetByID($row['id']);
-			$usuario = Gerenciador_Manager::userGetById($row['id_senha']);
+			$porteiro = Gerenciador_Manager::porteiroGetByID($row['porteiro']);
                 ?>
                         <tr>
                                 <td><?=$row['data']?></td>
                                 <td><?=$porteiro['mac']?></td>
                                 <td><?=$row['ramal']?></td>
-                                <td><?=$usuario['usuario']?></td>
+                                <td><?=$row['usuario']?></td>
+				<?($row['resultado'] == "1") ? $row['resultado'] = "Permitido" : $row['resultado'] = "Negado";?>
                                 <td><?=$row['resultado']?></td>
                         </tr>
                 <? } ?>

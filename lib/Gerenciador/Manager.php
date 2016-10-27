@@ -126,6 +126,33 @@ class Gerenciador_Manager {
         }
 
 
+        /* Retorna uma senha  usando como entrada a senha. */
+        public static function senhaGetSenha($senha)
+        {
+                $db = Zend_Registry::get('db');
+                $select = $db->select()
+                     ->from('senha', array('id','senha','usuario', 'grupo', 'cadastro', 'atualizado'))
+                     ->where("senha = '$senha'");
+                $stmt = $db->query($select);
+                $result = $stmt->fetchAll();
+
+                if (count($result) > 1)
+                { // erro 
+                        return Array();
+                }
+                else if (count($result) == 1)
+                { // OK
+                        return $result[0];
+                }
+                else
+                {  // erro
+                        return Array();
+                }
+
+        }
+
+
+
 
 
         /* Retorna o porteiro usando como entrada seu número de MAC. */
@@ -481,6 +508,56 @@ class Gerenciador_Manager {
                         }
 		}  
 	}  					
+
+        /* Adiciona os dados referentes as transações de uso do rfid. */
+        public static function contadorSenha($senha, $ramal, $acesso)
+        {
+
+                if($acesso == true)
+                {
+                        $ssenha = self::senhaGetBySenha($senha);
+
+
+                        $porteiro = self::porteiroGetByRamal($ramal);
+                        $db = Zend_Registry::get('db');
+                        $calendario = date("Y-m-d H:i");
+                        $insert_data = array("data" => $calendario,
+                                             "porteiro" => $porteiro['id'],
+                                             "ramal" => $ramal,
+					     "senha" => $senha,
+                                             "id_senha" => $ssenha['id'],
+                                             "resultado" => $acesso);
+                        $tabela = 'contador_senha';
+                        $db->beginTransaction();
+                        try{
+                                 $db->insert($tabela, $insert_data);
+                                 $db->commit();
+                        }catch(Exception $e){
+                                 $db->rollback();
+                        }
+
+                }
+                else
+                {
+                        $porteiro = self::porteiroGetByRamal($ramal);
+                        $db = Zend_Registry::get('db');
+                        $calendario = date("Y-m-d H:i");
+                        $insert_data = array("data" => $calendario,
+                                             "porteiro" => $porteiro['id'],
+                                             "ramal" => $ramal,
+                                             "senha" => $senha,
+                                             "resultado" => $acesso);
+                        $tabela = 'contador_senha';
+                        $db->beginTransaction();
+                        try{
+                                 $db->insert($tabela, $insert_data);
+                                 $db->commit();
+                        }catch(Exception $e){
+                                 $db->rollback();
+                        }
+                }
+        }
+
 
 }
 ?>

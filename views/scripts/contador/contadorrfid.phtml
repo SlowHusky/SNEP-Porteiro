@@ -46,6 +46,7 @@ $result = Gerenciador_Manager::getTabela('contador_rfid');
                                 <td><?=$porteiro['mac']?></td>
                                 <td><?=$row['ramal']?></td>
                                 <td><?=$row['rfid']?></td>
+				<?($row['resultado'] == "1") ? $row['resultado'] = "Permitido" : $row['resultado'] = "Negado";?>
                                 <td><?=$row['resultado']?></td>
                         </tr>
                 <? } ?>
