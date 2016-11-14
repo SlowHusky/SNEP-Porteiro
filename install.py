@@ -24,7 +24,7 @@ if os.path.exists('/var/www/html/snep/modules/porteiro'):
 
 print "Nao apresenta versao instalada. Preparando para instalar modulo...\n"
 
-url = 'www.camtecnologia.com.br/downloads/pacote.tar'
+url = 'www.camtecnologia.com.br/downloads/DCAM.tar.gz'
 print "Se conectando com o servidor em " + url
 print "\nIniciando download de arquivos ...\n"
 os.system("mkdir porteiro")
@@ -37,9 +37,8 @@ print "Download efetuado!"
 
 print "Iniciando a extracao dos arquivos"
 print "...\n"
-time.sleep(2)
-os.system("mv pacote.tar pacote.tar.gz") 
-os.system("tar -xf pacote.tar.gz")
+time.sleep(2) 
+os.system("tar -xf DCAM.tar.gz")
 print "Arquivo instalado"
 print "Executando alteracao no banco de dados do SNEP!"
 os.system('mysql -u snep --password=sneppass snep < banco.sql')
@@ -48,4 +47,3 @@ print "Banco pronto"
 
 
 print "Seu modulo esta pronto para o funcionamento!"
-
